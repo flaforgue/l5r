@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'ShipporiMincho-Regular';
+  font-style: normal;
+  font-display: block;
+  src: url(/fonts/ShipporiMincho-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'ShipporiMincho-Bold';
+  font-style: normal;
+  font-display: block;
+  src: url(/fonts/ShipporiMincho-Bold.ttf) format('truetype');
+}
+
+@theme {
+  --font-sans: "ShipporiMincho-Regular", "sans-serif"; 
+  --font-title: "ShipporiMincho-Bold", "sans-serif"; 
+}
