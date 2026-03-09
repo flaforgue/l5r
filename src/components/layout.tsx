@@ -5,6 +5,7 @@ import { CenteredContainer } from "./centered-container";
 import { SamuraiImage } from "./images/samurai-image";
 import { MainNavLink } from "./main-nav-link";
 import { ScrollImage } from "./images/scroll-image";
+import { FanImage } from "./images/fan";
 
 interface LayoutProps {
   children?: ReactNode | ReactNode[];
@@ -58,7 +59,18 @@ export function Layout({ children }: LayoutProps) {
           `}
         >
           <MainNavLink to="/player/character" label="Personnage" icon={<SamuraiImage />} />
-          <MainNavLink to="/player/notes" label="Notes" icon={<ScrollImage />} />
+          <MainNavLink
+            isDisabled={true}
+            to="/player/interlude"
+            label="Interlude"
+            icon={<FanImage />}
+          />
+          <MainNavLink
+            isDisabled={true}
+            to="/player/notes"
+            label="Notes"
+            icon={<ScrollImage />}
+          />
         </CenteredContainer>
       </div>
       <div

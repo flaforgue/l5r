@@ -5,14 +5,15 @@ interface MainNavLinkProps {
   to: string;
   label: string;
   icon?: ReactNode;
+  isDisabled?: boolean;
 }
-export function MainNavLink({ to, label, icon }: MainNavLinkProps) {
+export function MainNavLink({ to, label, icon, isDisabled = false }: MainNavLinkProps) {
   const currentPathname = useLocation().pathname;
   const isActive = currentPathname.includes(to);
 
   return (
     <Link
-      to={to}
+      to={isDisabled ? "#" : to}
       data-tooltip-id="global"
       data-tooltip-content={label}
       data-tooltip-place="right"
@@ -27,10 +28,12 @@ export function MainNavLink({ to, label, icon }: MainNavLinkProps) {
         transition-all
         ease-in-out
 
-        ${isActive
-      ? "bg-gray-700"
-      : "hover:bg-gray-50/10"
-    }
+        ${isDisabled && `
+          cursor-not-allowed
+          opacity-20
+        `}
+        ${isActive && !isDisabled && "bg-gray-700"}
+        ${!isActive && !isDisabled && "hover:bg-gray-50/10"}
       `}
     >
       <div
