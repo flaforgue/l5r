@@ -30,7 +30,7 @@ export function Layout({ children }: LayoutProps) {
             text-gray-50
           `}
           style={{
-            backgroundImage: "url(/images/banner.png)",
+            backgroundImage: `url(${import.meta.env.BASE_URL}/images/banner.png)`,
             backgroundSize: "contain",
             backgroundPosition: "top center",
             backgroundRepeat: "no-repeat",

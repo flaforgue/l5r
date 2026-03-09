@@ -20,7 +20,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
         className,
       )}
       style={{
-        backgroundImage: "url(/images/background.png)",
+        backgroundImage: `url(${import.meta.env.BASE_URL}/images/background.png)`,
         backgroundSize: "cover",
         backgroundPosition: "bottom",
       }}

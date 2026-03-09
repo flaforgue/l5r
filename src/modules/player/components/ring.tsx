@@ -71,11 +71,11 @@ export function Ring({ value, setValue, ringType, className = "", labelClassName
 
 export type RingType = "air" | "earth" | "fire" | "water" | "void";
 export const RING_IULLUSTRATIONS_URLS: Record<RingType, string> = {
-  air: "/images/air.png",
-  earth: "/images/earth.png",
-  fire: "/images/fire.png",
-  water: "/images/water.png",
-  void: "/images/void.png",
+  air: `${import.meta.env.BASE_URL}/images/air.png`,
+  earth: `${import.meta.env.BASE_URL}/images/earth.png`,
+  fire: `${import.meta.env.BASE_URL}/images/fire.png`,
+  water: `${import.meta.env.BASE_URL}/images/water.png`,
+  void: `${import.meta.env.BASE_URL}/images/void.png`,
 };
 
 interface RingInfo {

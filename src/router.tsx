@@ -13,14 +13,18 @@ const routes: RouteObject[] = [
   ...PLAYER_ROUTES,
 ];
 
-export const ROUTER = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/player" />,
+export const ROUTER = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Navigate to="/player" />,
+    },
+    ...routes,
+    {
+      path: "*",
+      element: <Layout><NotFoundPage /></Layout>,
+    },
+  ], {
+    basename: "/l5r",
   },
-  ...routes,
-  {
-    path: "*",
-    element: <Layout><NotFoundPage /></Layout>,
-  },
-]);
+);
