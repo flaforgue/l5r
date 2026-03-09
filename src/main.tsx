@@ -1,8 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { App } from "./app";
 import { Tooltip } from "react-tooltip";
+import { RouterProvider } from "react-router";
+import { ROUTER } from "./router";
 
 const root = document.getElementById("root");
 
@@ -12,7 +13,7 @@ if (root === null) {
 
 createRoot(root).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={ROUTER} />
     <Tooltip
       id="global"
       place="top"
