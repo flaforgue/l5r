@@ -1,5 +1,8 @@
+import { RouterProvider } from "react-router";
+import { ROUTER } from "./router";
+
 export function App() {
   return (
-    <div />
+    <RouterProvider router={ROUTER} />
   );
 }

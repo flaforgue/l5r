@@ -1,0 +1,121 @@
+import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { Ring } from "./ring";
+
+export function Rings() {
+  const [airValue, setAirValue] = useLocalStorageState("airValue", 0);
+  const [earthValue, setEarthValue] = useLocalStorageState("earthValue", 0);
+  const [fireValue, setFireValue] = useLocalStorageState("fireValue", 0);
+  const [waterValue, setWaterValue] = useLocalStorageState("waterValue", 0);
+  const [voidValue, setVoidValue] = useLocalStorageState("voidValue", 0);
+
+  return (
+    <div
+      className={`
+        relative
+        h-[230px]
+        w-[230px]
+      `}
+    >
+      <Ring
+        value={airValue}
+        setValue={setAirValue}
+        ringType="air"
+        className={`
+          absolute
+          top-0
+          right-8
+        `}
+        labelClassName={`
+          absolute
+          bottom-2
+          -right-5
+        `}
+        inputClassName={`
+          absolute
+          -bottom-3
+          left-0
+        `}
+      />
+      <Ring
+        value={earthValue}
+        setValue={setEarthValue}
+        ringType="earth"
+        className={`
+          absolute
+          top-0
+          left-8
+        `}
+        labelClassName={`
+          absolute
+          bottom-2
+          -left-9
+        `}
+        inputClassName={`
+          absolute
+          -bottom-3
+          right-0
+        `}
+      />
+      <Ring
+        value={fireValue}
+        setValue={setFireValue}
+        ringType="fire"
+        className={`
+          absolute
+          top-20
+          right-2
+        `}
+        labelClassName={`
+          absolute
+          -bottom-4
+          right-2
+        `}
+        inputClassName={`
+          absolute
+          top-3
+          -left-3
+        `}
+      />
+      <Ring
+        value={waterValue}
+        setValue={setWaterValue}
+        ringType="water"
+        className={`
+          absolute
+          top-20
+          left-2
+        `}
+        labelClassName={`
+          absolute
+          -bottom-4
+          left-2
+        `}
+        inputClassName={`
+          absolute
+          top-3
+          -right-3
+        `}
+      />
+      <Ring
+        value={voidValue}
+        setValue={setVoidValue}
+        ringType="void"
+        className={`
+          absolute
+          top-32
+          left-19
+        `}
+        labelClassName={`
+          absolute
+          -bottom-5
+          left-6
+        `}
+        inputClassName={`
+          absolute
+          -top-3
+          left-5
+        `}
+      />
+    </div>
+  );
+}
