@@ -1,15 +1,22 @@
 import { CenteredContainer } from "../../../components/centered-container";
 import NumberInput from "../../../components/number-input";
 import TextInput from "../../../components/text-input";
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { useCharacterStore } from "../stores/character.store";
 import { Rings } from "./rings";
 
 export function Identity() {
-  const [clanName, setClanName] = useLocalStorageState("clanName", "");
-  const [familyName, setFamilyName] = useLocalStorageState("familyName", "");
-  const [characterName, setCharacterName] = useLocalStorageState("characterName", "");
-  const [honor, setHonor] = useLocalStorageState("honor", 0);
-  const [fame, setFame] = useLocalStorageState("fame", 0);
+  const {
+    clanName,
+    updateClanName,
+    familyName,
+    updateFamilyName,
+    characterName,
+    updateCharacterName,
+    honor,
+    updateHonor,
+    fame,
+    updateFame,
+  } = useCharacterStore();
 
   return (
     <div
@@ -28,19 +35,19 @@ export function Identity() {
         <TextInput
           label="族 CLAN"
           value={clanName}
-          onChange={setClanName}
+          onChange={updateClanName}
           className="w-32"
         />
         <TextInput
           label="家 FAMILLE"
           value={familyName}
-          onChange={setFamilyName}
+          onChange={updateFamilyName}
           className="w-32"
         />
         <TextInput
           label="名 PRÉNOM"
           value={characterName}
-          onChange={setCharacterName}
+          onChange={updateCharacterName}
           className="w-32"
         />
       </div>
@@ -54,14 +61,14 @@ export function Identity() {
         <NumberInput
           label="光 GLOIRE"
           value={fame}
-          onChange={setFame}
+          onChange={updateFame}
           className="w-32"
           max={100}
         />
         <NumberInput
           label="誉 HONNEUR"
           value={honor}
-          onChange={setHonor}
+          onChange={updateHonor}
           className="w-32"
           max={100}
         />

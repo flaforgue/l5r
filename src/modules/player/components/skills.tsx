@@ -1,38 +1,60 @@
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
 import { Card, CardContent } from "../../../shadcn/ui/card";
 import { Advantage } from "./advantage";
 import { SkillsFamily } from "./skills-family";
 import { VoidPoints } from "./void-points";
+import { useCharacterStore } from "../stores/character.store";
 
 export function Skills() {
-  const [aestheticValue, setAestheticValue] = useLocalStorageState("aestheticValue", 0);
-  const [compositionValue, setCompositionValue] = useLocalStorageState("compositionValue", 0);
-  const [stylismValue, setStylismValue] = useLocalStorageState("stylismValue", 0);
-  const [forgeValue, setForgeValue] = useLocalStorageState("forgeValue", 0);
-
-  const [physicalConditionValue, setPhysicalConditionValue] = useLocalStorageState("physicalConditionValue", 0);
-  const [armedFightingValue, setArmedFightingValue] = useLocalStorageState("armedFightingValue", 0);
-  const [distantFightingValue, setDistantFightingValue] = useLocalStorageState("distantFightingValue", 0);
-  const [unarmedFightingValue, setUnarmedFightingValue] = useLocalStorageState("unarmedFightingValue", 0);
-  const [meditationValue, setMeditationValue] = useLocalStorageState("meditationValue", 0);
-  const [tacticsValue, setTacticsValue] = useLocalStorageState("tacticsValue", 0);
-
-  const [cultureValue, setCultureValue] = useLocalStorageState("cultureValue", 0);
-  const [governmentValue, setGovernmentValue] = useLocalStorageState("governmentValue", 0);
-  const [medicineValue, setMedicineValue] = useLocalStorageState("medicineValue", 0);
-  const [emotionsValue, setEmotionsValue] = useLocalStorageState("emotionsValue", 0);
-  const [theologyValue, setTheologyValue] = useLocalStorageState("theologyValue", 0);
-
-  const [commandValue, setCommandValue] = useLocalStorageState("commandValue", 0);
-  const [courtesyValue, setCourtesyValue] = useLocalStorageState("courtesyValue", 0);
-  const [gamesValue, setGamesValue] = useLocalStorageState("gamesValue", 0);
-  const [representationValue, setRepresentationValue] = useLocalStorageState("representationValue", 0);
-
-  const [commerceValue, setCommerceValue] = useLocalStorageState("commerceValue", 0);
-  const [manualWorkValue, setManualWorkValue] = useLocalStorageState("manualWorkValue", 0);
-  const [navigationValue, setNavigationValue] = useLocalStorageState("navigationValue", 0);
-  const [tricksValue, setTricksValue] = useLocalStorageState("tricksValue", 0);
-  const [survivalValue, setSurvivalValue] = useLocalStorageState("survivalValue", 0);
+  const {
+    aestheticValue,
+    updateAestheticValue,
+    compositionValue,
+    updateCompositionValue,
+    stylismValue,
+    updateStylismValue,
+    forgeValue,
+    updateForgeValue,
+    physicalConditionValue,
+    updatePhysicalConditionValue,
+    armedFightingValue,
+    updateArmedFightingValue,
+    distantFightingValue,
+    updateDistantFightingValue,
+    unarmedFightingValue,
+    updateUnarmedFightingValue,
+    meditationValue,
+    updateMeditationValue,
+    tacticsValue,
+    updateTacticsValue,
+    cultureValue,
+    updateCultureValue,
+    governmentValue,
+    updateGovernmentValue,
+    medicineValue,
+    updateMedicineValue,
+    emotionsValue,
+    updateEmotionsValue,
+    theologyValue,
+    updateTheologyValue,
+    commandValue,
+    updateCommandValue,
+    courtesyValue,
+    updateCourtesyValue,
+    gamesValue,
+    updateGamesValue,
+    representationValue,
+    updateRepresentationValue,
+    commerceValue,
+    updateCommerceValue,
+    manualWorkValue,
+    updateManualWorkValue,
+    navigationValue,
+    updateNavigationValue,
+    tricksValue,
+    updateTricksValue,
+    survivalValue,
+    updateSurvivalValue,
+  } = useCharacterStore();
 
   return (
     <div
@@ -50,25 +72,25 @@ export function Skills() {
             id: "aesthetic",
             label: "Esthétique",
             value: aestheticValue,
-            setValue: setAestheticValue,
+            updateValue: updateAestheticValue,
           },
           {
             id: "composition",
             label: "Composition",
             value: compositionValue,
-            setValue: setCompositionValue,
+            updateValue: updateCompositionValue,
           },
           {
             id: "stylism",
             label: "Stylisme",
             value: stylismValue,
-            setValue: setStylismValue,
+            updateValue: updateStylismValue,
           },
           {
             id: "forge",
             label: "Forge",
             value: forgeValue,
-            setValue: setForgeValue,
+            updateValue: updateForgeValue,
           },
         ]}
         approaches={{
@@ -88,25 +110,25 @@ export function Skills() {
             id: "command",
             label: "Commandement",
             value: commandValue,
-            setValue: setCommandValue,
+            updateValue: updateCommandValue,
           },
           {
             id: "courtesy",
             label: "Courtoisie",
             value: courtesyValue,
-            setValue: setCourtesyValue,
+            updateValue: updateCourtesyValue,
           },
           {
             id: "games",
             label: "Jeux",
             value: gamesValue,
-            setValue: setGamesValue,
+            updateValue: updateGamesValue,
           },
           {
             id: "representation",
             label: "Représentation",
             value: representationValue,
-            setValue: setRepresentationValue,
+            updateValue: updateRepresentationValue,
           },
         ]}
         approaches={{
@@ -126,31 +148,31 @@ export function Skills() {
             id: "culture",
             label: "Culture",
             value: cultureValue,
-            setValue: setCultureValue,
+            updateValue: updateCultureValue,
           },
           {
             id: "government",
             label: "Gouvernement",
             value: governmentValue,
-            setValue: setGovernmentValue,
+            updateValue: updateGovernmentValue,
           },
           {
             id: "medicine",
             label: "Médecine",
             value: medicineValue,
-            setValue: setMedicineValue,
+            updateValue: updateMedicineValue,
           },
           {
             id: "emotions",
             label: "Sentiments",
             value: emotionsValue,
-            setValue: setEmotionsValue,
+            updateValue: updateEmotionsValue,
           },
           {
             id: "theology",
             label: "Théologie",
             value: theologyValue,
-            setValue: setTheologyValue,
+            updateValue: updateTheologyValue,
           },
         ]}
         approaches={{
@@ -170,31 +192,31 @@ export function Skills() {
             id: "commerce",
             label: "Commerce",
             value: commerceValue,
-            setValue: setCommerceValue,
+            updateValue: updateCommerceValue,
           },
           {
             id: "manualWork",
             label: "Travail Manuel",
             value: manualWorkValue,
-            setValue: setManualWorkValue,
+            updateValue: updateManualWorkValue,
           },
           {
             id: "navigation",
             label: "Navigation",
             value: navigationValue,
-            setValue: setNavigationValue,
+            updateValue: updateNavigationValue,
           },
           {
             id: "tricks",
             label: "Magouilles",
             value: tricksValue,
-            setValue: setTricksValue,
+            updateValue: updateTricksValue,
           },
           {
             id: "survival",
             label: "Survie",
             value: survivalValue,
-            setValue: setSurvivalValue,
+            updateValue: updateSurvivalValue,
           },
         ]}
         approaches={{
@@ -214,37 +236,37 @@ export function Skills() {
             id: "physicalCondition",
             label: "Forme",
             value: physicalConditionValue,
-            setValue: setPhysicalConditionValue,
+            updateValue: updatePhysicalConditionValue,
           },
           {
             id: "armedFighting",
             label: "Arts Martiaux ⚔️",
             value: armedFightingValue,
-            setValue: setArmedFightingValue,
+            updateValue: updateArmedFightingValue,
           },
           {
             id: "distantFighting",
             label: "Arts Martiaux 🏹",
             value: distantFightingValue,
-            setValue: setDistantFightingValue,
+            updateValue: updateDistantFightingValue,
           },
           {
             id: "unarmedFighting",
             label: "Arts Martiaux 👊",
             value: unarmedFightingValue,
-            setValue: setUnarmedFightingValue,
+            updateValue: updateUnarmedFightingValue,
           },
           {
             id: "meditation",
             label: "Méditation",
             value: meditationValue,
-            setValue: setMeditationValue,
+            updateValue: updateMeditationValue,
           },
           {
             id: "tactics",
             label: "Tactique",
             value: tacticsValue,
-            setValue: setTacticsValue,
+            updateValue: updateTacticsValue,
           },
         ]}
         approaches={{

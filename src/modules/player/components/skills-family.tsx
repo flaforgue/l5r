@@ -7,13 +7,20 @@ interface SkillsFamilyProps {
     id: string;
     label: string;
     value: number;
-    setValue: (value: number) => void;
+    updateValue: (value: number) => void;
   }[];
   approaches: Record<RingType, string>;
   className?: string;
 }
 
 export function SkillsFamily({ label, skills, approaches, className = "" }: SkillsFamilyProps) {
+  const onChange = (value: unknown, updateValue: (value: number) => void) => {
+    const castedValue = Number(value);
+    const validCastedValue = isNaN(castedValue) ? 0 : castedValue;
+    const validValue = Math.max(0, Math.min(validCastedValue, 5));
+    updateValue(validValue);
+  };
+
   return (
     <div
       className={`
@@ -74,7 +81,7 @@ export function SkillsFamily({ label, skills, approaches, className = "" }: Skil
                 min={0}
                 max={5}
                 onChange={(e) => {
-                  skill.setValue(Number(e.target.value));
+                  onChange(e.target.value, skill.updateValue);
                 }}
                 className={`
                   w-16

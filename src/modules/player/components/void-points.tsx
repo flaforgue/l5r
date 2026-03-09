@@ -1,17 +1,16 @@
 import NumberInput from "../../../components/number-input";
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { useCharacterStore } from "../stores/character.store";
 
 export function VoidPoints() {
-  const [voidPoints, setVoidPoints] = useLocalStorageState("voidPoints", 0);
+  const { voidPoints, updateVoidPoints, voidValue } = useCharacterStore();
 
-  const [voidRingValue] = useLocalStorageState("voidValue", 0);
-  const maxVoidPoints = Math.floor(voidRingValue / 2);
+  const maxVoidPoints = voidValue;
 
   return (
     <NumberInput
       label="Points de Vide"
       value={voidPoints}
-      onChange={setVoidPoints}
+      onChange={updateVoidPoints}
       min={0}
       max={maxVoidPoints}
       className="w-34"

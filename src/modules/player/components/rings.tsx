@@ -1,12 +1,19 @@
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { useCharacterStore } from "../stores/character.store";
 import { Ring } from "./ring";
 
 export function Rings() {
-  const [airValue, setAirValue] = useLocalStorageState("airValue", 0);
-  const [earthValue, setEarthValue] = useLocalStorageState("earthValue", 0);
-  const [fireValue, setFireValue] = useLocalStorageState("fireValue", 0);
-  const [waterValue, setWaterValue] = useLocalStorageState("waterValue", 0);
-  const [voidValue, setVoidValue] = useLocalStorageState("voidValue", 0);
+  const {
+    airValue,
+    updateAirValue,
+    earthValue,
+    updateEarthValue,
+    fireValue,
+    updateFireValue,
+    waterValue,
+    updateWaterValue,
+    voidValue,
+    updateVoidValue,
+  } = useCharacterStore();
 
   return (
     <div
@@ -18,7 +25,7 @@ export function Rings() {
     >
       <Ring
         value={airValue}
-        setValue={setAirValue}
+        setValue={updateAirValue}
         ringType="air"
         className={`
           absolute
@@ -38,7 +45,7 @@ export function Rings() {
       />
       <Ring
         value={earthValue}
-        setValue={setEarthValue}
+        setValue={updateEarthValue}
         ringType="earth"
         className={`
           absolute
@@ -58,7 +65,7 @@ export function Rings() {
       />
       <Ring
         value={fireValue}
-        setValue={setFireValue}
+        setValue={updateFireValue}
         ringType="fire"
         className={`
           absolute
@@ -78,7 +85,7 @@ export function Rings() {
       />
       <Ring
         value={waterValue}
-        setValue={setWaterValue}
+        setValue={updateWaterValue}
         ringType="water"
         className={`
           absolute
@@ -98,7 +105,7 @@ export function Rings() {
       />
       <Ring
         value={voidValue}
-        setValue={setVoidValue}
+        setValue={updateVoidValue}
         ringType="void"
         className={`
           absolute

@@ -1,14 +1,14 @@
 import TextareaInput from "../../../components/textarea-input";
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { useCharacterStore } from "../stores/character.store";
 
 export function Advantage() {
-  const [advantage, setAdvantage] = useLocalStorageState("advantage", "");
+  const { advantage, updateAdvantage } = useCharacterStore();
 
   return (
     <TextareaInput
       label="Avantage"
       value={advantage}
-      onChange={setAdvantage}
+      onChange={updateAdvantage}
       labelClassName="text-olive-700"
     />
   );
