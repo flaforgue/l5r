@@ -17,7 +17,7 @@ export const ROUTER = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Navigate to="/player" />,
+      element: <Navigate to="/player/character" />,
     },
     ...routes,
     {

@@ -1,5 +1,4 @@
 import { Navigate, type RouteObject } from "react-router";
-import { HomePage } from "./pages/home.page";
 import { Layout } from "../../components/layout";
 import { CharacterPage } from "./pages/character.page";
 import { NotesPage } from "./pages/notes.page";
@@ -12,12 +11,12 @@ export const PLAYER_ROUTES: RouteObject[] = [
     children: [
       {
         path: "home",
-        element: <Navigate to="/player" />,
+        element: <Navigate to="/player/character" />,
         index: true,
       },
       {
         path: "",
-        element: <HomePage />,
+        element: <Navigate to="/player/character" />,
       },
       {
         path: "character",
