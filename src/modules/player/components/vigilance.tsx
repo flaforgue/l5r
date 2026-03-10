@@ -11,6 +11,7 @@ export function Vigilance() {
       label="Vigilance"
       iconClassName="text-yellow-600"
       textClassName="text-yellow-900"
+      helperText="Capacité à réagir à l'imprévu"
     />
   );
 }

@@ -1,6 +1,6 @@
 import { Card, CardContent } from "../../../shadcn/ui/card";
+import { AddItemInput } from "../components/add-item-input";
 import { InventoryZeni } from "../components/inventory-zeni";
-import { ItemInputAutocomplete } from "../components/item-input-autocomplete";
 import { ItemTable } from "../components/item-table";
 import { SpecialItems } from "../components/special-items";
 import { useCharacterStore } from "../stores/character.store";
@@ -43,7 +43,7 @@ export function InventoryPage() {
               `}
             >
               <InventoryZeni />
-              <ItemInputAutocomplete />
+              <AddItemInput />
             </CardContent>
           </Card>
         </div>

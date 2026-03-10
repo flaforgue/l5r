@@ -73,6 +73,10 @@ export default function InputAutocomplete({
     setSearchValue(option.label);
   };
 
+  const filteredOptions = searchValue === ""
+    ? []
+    : options.filter((option) => option.label.toLowerCase().includes(searchValue.toLowerCase())).slice(0, 5);
+
   const [focusedIndex, setFocusedIndex] = useState(-1);
   useKeydownHandler("Escape", (e: KeyboardEvent) => {
     e.preventDefault();
@@ -83,12 +87,12 @@ export default function InputAutocomplete({
     if (focusedIndex > 0) {
       setFocusedIndex(focusedIndex - 1);
     } else {
-      setFocusedIndex(options.length - 1);
+      setFocusedIndex(filteredOptions.length - 1);
     }
   });
   useKeydownHandler("ArrowDown", (e: KeyboardEvent) => {
     e.preventDefault();
-    if (focusedIndex < options.length - 1) {
+    if (focusedIndex < filteredOptions.length - 1) {
       setFocusedIndex(focusedIndex + 1);
     } else {
       setFocusedIndex(0);
@@ -96,15 +100,11 @@ export default function InputAutocomplete({
   });
   useKeydownHandler("Enter", (e: KeyboardEvent) => {
     e.preventDefault();
-    const option = options[focusedIndex];
+    const option = filteredOptions[focusedIndex];
     if (option !== undefined && option.isDisabled !== true) {
       selectOption(option);
     }
   });
-
-  const filteredOptions = searchValue === ""
-    ? []
-    : options.filter((option) => option.label.toLowerCase().includes(searchValue.toLowerCase())).slice(0, 5);
 
   return (
     <Popover open={isPopoverOpen && filteredOptions.length > 0}>

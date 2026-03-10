@@ -35,7 +35,7 @@ export function Rings() {
         labelClassName={`
           absolute
           bottom-2
-          -right-5
+          -right-10
         `}
         inputClassName={`
           absolute
@@ -55,7 +55,7 @@ export function Rings() {
         labelClassName={`
           absolute
           bottom-2
-          -left-9
+          -left-14
         `}
         inputClassName={`
           absolute
@@ -74,8 +74,8 @@ export function Rings() {
         `}
         labelClassName={`
           absolute
-          -bottom-4
-          right-2
+          -bottom-5
+          right-3
         `}
         inputClassName={`
           absolute
@@ -94,7 +94,7 @@ export function Rings() {
         `}
         labelClassName={`
           absolute
-          -bottom-4
+          -bottom-5
           left-2
         `}
         inputClassName={`
@@ -115,7 +115,7 @@ export function Rings() {
         labelClassName={`
           absolute
           -bottom-5
-          left-6
+          left-4
         `}
         inputClassName={`
           absolute

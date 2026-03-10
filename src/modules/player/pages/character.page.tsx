@@ -1,6 +1,5 @@
 import { Card, CardContent } from "../../../shadcn/ui/card";
 import { Confrontation } from "../components/confrontation";
-import { ConfrontationStances } from "../components/confrontation-stances";
 import { Identity } from "../components/identity";
 import { Skills } from "../components/skills";
 
@@ -45,7 +44,7 @@ export function CharacterPage() {
         </Card>
         <Card className="w-1/2">
           <CardContent>
-            <ConfrontationStances />
+            Techniques
           </CardContent>
         </Card>
       </div>

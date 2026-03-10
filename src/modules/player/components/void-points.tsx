@@ -8,13 +8,14 @@ export function VoidPoints() {
 
   return (
     <NumberInput
-      label="の Points de Vide"
+      label="の P. de Vide"
       value={voidPoints}
       onChange={updateVoidPoints}
       min={0}
       max={maxVoidPoints}
       className="w-34"
       labelClassName="text-olive-700"
+      helperText="Peut être dépensé pour lancer et garder 1 dé supplémentaire sur un jet (pas forcément le même dé)"
     />
   );
 }

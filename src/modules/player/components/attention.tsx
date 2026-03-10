@@ -11,6 +11,7 @@ export function Attention() {
       label="Attention"
       iconClassName="text-teal-800"
       textClassName="text-teal-900"
+      helperText="Capacité à réagir à une menace perçue"
     />
   );
 }

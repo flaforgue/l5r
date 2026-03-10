@@ -5,6 +5,7 @@ import NumberInput from "../../../components/number-input";
 import TextInput from "../../../components/text-input";
 import { useCharacterStore } from "../stores/character.store";
 import { ArmorInput } from "./armor-input";
+import { StanceInput } from "./stance-input";
 import { WeaponInput } from "./weapon-input";
 
 export function PhysicalState() {
@@ -45,26 +46,30 @@ export function PhysicalState() {
           color: getScaledColor(exhaustion, endurance),
         }}
         className="w-28"
+        helperText="Si la Fatigue atteint son maximum, le personnage tombe inconscient"
       />
       <div>
         <Label htmlFor="critical-hits" className="mb-2">命 Coups Critiques</Label>
-        <CenteredContainer className="gap-2">
+        <CenteredContainer className="gap-2.5">
           <CheckboxInput
             isChecked={criticalHits > 0}
             onChange={(isChecked) => {
               onCriticalHitToggled(isChecked, 1);
             }}
+            tooltip="Douleur atroce : ajoute 3 points de Conflit"
             className={`
               text-yellow-600
 
               checked:border-yellow-700
             `}
+
           />
           <CheckboxInput
             isChecked={criticalHits > 1}
             onChange={(isChecked) => {
               onCriticalHitToggled(isChecked, 2);
             }}
+            tooltip="Blessure légère : ND+1 au prochain test"
             className={`
               text-amber-600
 
@@ -76,6 +81,7 @@ export function PhysicalState() {
             onChange={(isChecked) => {
               onCriticalHitToggled(isChecked, 3);
             }}
+            tooltip="Blessure incapacitante : ND+1 jusqu’à ce que la blessure soit soignée"
             className={`
               text-orange-600
 
@@ -87,6 +93,7 @@ export function PhysicalState() {
             onChange={(isChecked) => {
               onCriticalHitToggled(isChecked, 4);
             }}
+            tooltip="Blessure grave : hors de combat jusqu’à ce que la blessure soit soignée"
             className={`
               text-red-600
 
@@ -106,6 +113,7 @@ export function PhysicalState() {
           gap-2
         `}
       >
+        <StanceInput />
         <ArmorInput />
         <WeaponInput />
       </div>

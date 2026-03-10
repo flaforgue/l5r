@@ -4,8 +4,9 @@ interface CheckboxInputProps {
   isChecked: boolean;
   onChange: (v: boolean) => void;
   className?: string;
+  tooltip?: string;
 }
-export default function CheckboxInput({ isChecked, onChange, className = "" }: CheckboxInputProps) {
+export default function CheckboxInput({ isChecked, onChange, className = "", tooltip = "" }: CheckboxInputProps) {
   const toggle = () => {
     onChange(!isChecked);
   };
@@ -15,6 +16,8 @@ export default function CheckboxInput({ isChecked, onChange, className = "" }: C
       type="checkbox"
       checked={isChecked}
       onChange={toggle}
+      {...(tooltip !== "" && { "data-tooltip-id": "global" })}
+      {...(tooltip !== "" && { "data-tooltip-content": tooltip })}
       className={cn(
         `
           h-7

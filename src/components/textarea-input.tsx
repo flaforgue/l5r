@@ -1,7 +1,7 @@
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import { useId } from "react";
 import { Label } from "./label";
-import { cn } from "../shadcn/lib/utils";
+import { HelperText } from "./helper-text";
 
 interface TextareaInputProps {
   onChange: (v: string) => void;
@@ -11,6 +11,7 @@ interface TextareaInputProps {
   placeholder?: string | undefined;
   className?: string;
   labelClassName?: string;
+  helperText?: ReactNode;
 }
 
 export default function TextareaInput({
@@ -21,6 +22,7 @@ export default function TextareaInput({
   label,
   className = "",
   labelClassName = "",
+  helperText,
 }: TextareaInputProps) {
   const id = useId();
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,9 +32,19 @@ export default function TextareaInput({
   return (
     <div className={className}>
       {label !== undefined && (
-        <Label htmlFor={id} className={cn("mb-1", labelClassName)}>
-          {label}
-        </Label>
+        <div
+          className={`
+            mb-1
+            flex
+            items-center
+            gap-1
+          `}
+        >
+          <Label htmlFor={id} className={labelClassName}>
+            {label}
+          </Label>
+          {helperText !== undefined && <HelperText className="text-olive-700" helperText={helperText} />}
+        </div>
       )}
       <div className="relative">
         <textarea

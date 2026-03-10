@@ -30,6 +30,16 @@ export function PsycologicalState() {
           color: getScaledColor(conflict, selfControl),
         }}
         className="w-28"
+        helperText={(
+          <div>
+            <p>Si le Conflit atteint son maximum :</p>
+            <ul>
+              <li>La vigilance passe à 1</li>
+              <li>Les dés présentant un Conflit ne peuvent plus être gardés</li>
+              <li>On peut, une fois par scène, &quot;tomber le masque&quot;</li>
+            </ul>
+          </div>
+        )}
       />
       <TextareaInput
         onChange={updateLoseControlAttitude}
@@ -37,6 +47,12 @@ export function PsycologicalState() {
         label="爆 Tomber le masque"
         rows={2}
         className="flex-1"
+        helperText={(
+          <div>
+            <p>Le personnage ne se contrôle plus et est incapable de masquer ses émotions</p>
+            <p>Une fois l&apos;épisode terminé, le Conflit redescend à 0</p>
+          </div>
+        )}
       />
     </div>
   );

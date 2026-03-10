@@ -1,7 +1,8 @@
-import { useId } from "react";
+import { useId, type ReactNode } from "react";
 import { Label } from "./label";
 import { cn } from "../shadcn/lib/utils";
 import RawNumberInput, { fixNumberInputValue } from "./raw-number-input";
+import { HelperText } from "./helper-text";
 
 interface NumberInputProps {
   label?: string;
@@ -12,6 +13,7 @@ interface NumberInputProps {
   className?: string;
   labelClassName?: string;
   inputStyle?: React.CSSProperties;
+  helperText?: ReactNode;
 }
 
 export default function NumberInput({
@@ -23,6 +25,7 @@ export default function NumberInput({
   className = "",
   labelClassName = "",
   inputStyle = {},
+  helperText,
 }: NumberInputProps) {
   const id = `number-input-${useId()}`;
 
@@ -48,12 +51,20 @@ export default function NumberInput({
   return (
     <div className={className}>
       {label !== undefined && (
-        <Label
-          htmlFor={id}
-          className={cn("mb-1", labelClassName)}
+        <div
+          className={`
+            flex
+            justify-between
+          `}
         >
-          {label}
-        </Label>
+          <Label
+            htmlFor={id}
+            className={cn("mb-1", labelClassName)}
+          >
+            {label}
+          </Label>
+          {helperText !== undefined && <HelperText className="text-olive-700" helperText={helperText} />}
+        </div>
       )}
       <div
         className={`

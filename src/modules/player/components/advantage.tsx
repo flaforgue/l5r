@@ -10,6 +10,7 @@ export function Advantage() {
       value={advantage}
       onChange={updateAdvantage}
       labelClassName="text-olive-700"
+      helperText="Permet de relancer jusqu'à 2 dés"
     />
   );
 }

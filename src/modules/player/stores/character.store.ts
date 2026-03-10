@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ARMORS, WEAPONS } from "../../items/items";
+import type { RingType } from "../components/ring";
 
 interface Store {
   // Identity
@@ -16,12 +17,16 @@ interface Store {
   updateFame: (fame: number) => void;
   advantage: string;
   updateAdvantage: (advantage: string) => void;
+  schoolSkill: string;
+  updateSchoolSkill: (schoolSkill: string) => void;
   dilemma: string;
   updateDilemma: (dilemma: string) => void;
   loseControlAttitude: string;
   updateLoseControlAttitude: (loseControlAttitude: string) => void;
 
   // Physical State
+  activeRing: RingType;
+  updateActiveRing: (activeRing: RingType) => void;
   exhaustion: number;
   updateExhaustion: (exhaustion: number) => void;
   physicalAlteration: string;
@@ -143,6 +148,10 @@ export const useCharacterStore = create<Store>()(
         set({ fame });
       },
 
+      activeRing: "void",
+      updateActiveRing: (activeRing) => {
+        set({ activeRing });
+      },
       exhaustion: 0,
       updateExhaustion: (exhaustion) => {
         set({ exhaustion });
@@ -225,6 +234,11 @@ export const useCharacterStore = create<Store>()(
       advantage: "",
       updateAdvantage: (advantage: string) => {
         set({ advantage });
+      },
+
+      schoolSkill: "",
+      updateSchoolSkill: (schoolSkill: string) => {
+        set({ schoolSkill });
       },
 
       dilemma: "",

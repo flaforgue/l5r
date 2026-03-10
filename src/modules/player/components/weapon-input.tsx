@@ -1,4 +1,4 @@
-import { ItemInput } from "../../../components/item-input";
+import { ItemInput } from "./item-input";
 import type { Item } from "../../items/items";
 import { useCharacterStore } from "../stores/character.store";
 

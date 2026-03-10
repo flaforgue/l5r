@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { cn } from "../shadcn/lib/utils";
+import { HelperText } from "./helper-text";
 import { CircleImage } from "./images/circle-image";
 
 interface CircleValueProps {
@@ -6,8 +8,9 @@ interface CircleValueProps {
   label: string;
   iconClassName?: string;
   textClassName?: string;
+  helperText?: ReactNode;
 }
-export function CircleValue({ value, label, iconClassName = "", textClassName = "" }: CircleValueProps) {
+export function CircleValue({ value, label, iconClassName = "", textClassName = "", helperText }: CircleValueProps) {
   return (
     <div
       className={cn(
@@ -39,21 +42,25 @@ export function CircleValue({ value, label, iconClassName = "", textClassName = 
       >
         {value}
       </p>
-      <p
+      <div
         className={cn(
           `
             absolute
             top-18
             left-1/2
+            flex
             -translate-x-1/2
             -translate-y-1/2
+            items-center
+            gap-0.5
             text-olive-900
           `,
           textClassName,
         )}
       >
-        {label}
-      </p>
+        {helperText !== undefined && <HelperText helperText={helperText} />}
+        <p className="text-sm">{label}</p>
+      </div>
     </div>
   );
 }
