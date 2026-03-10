@@ -18,7 +18,7 @@ export interface Item {
   illustration: ReactNode;
 }
 
-export const ARMORS: Item[] = [
+export const ARMORS: [Item, ...Item[]] = [
   {
     id: "7cb1a34b-fac5-44f2-b7b9-3f7c40b91d06",
     label: "Tenue ordinaire",
@@ -57,7 +57,7 @@ export const ARMORS: Item[] = [
   },
 ];
 
-export const WEAPONS: Item[] = [
+export const WEAPONS: [Item, Item, ...Item[]] = [
   {
     id: "d93ffc13-b97f-4667-890b-e0357c139f9b",
     label: "Poings",

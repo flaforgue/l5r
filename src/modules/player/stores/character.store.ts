@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { ARMORS, WEAPONS } from "../../items/items";
 import type { RingType } from "../components/ring";
+import { ARMORS, WEAPONS } from "../../items/items";
 
 interface Store {
   // Identity
@@ -165,7 +165,7 @@ export const useCharacterStore = create<Store>()(
         set({ criticalHits });
       },
 
-      armorIds: ARMORS.map((armor) => armor.id),
+      armorIds: [ARMORS[0].id],
       updateArmorIds: (armorIds) => {
         set({ armorIds });
       },
@@ -174,7 +174,7 @@ export const useCharacterStore = create<Store>()(
         set({ equippedArmorId });
       },
 
-      weaponIds: WEAPONS.map((weapon) => weapon.id),
+      weaponIds: [WEAPONS[0].id, WEAPONS[1].id],
       updateWeaponIds: (weaponIds) => {
         set({ weaponIds });
       },
