@@ -6,7 +6,7 @@ export function Advantage() {
 
   return (
     <TextareaInput
-      label="Avantage"
+      label="資 Avantage"
       value={advantage}
       onChange={updateAdvantage}
       labelClassName="text-olive-700"

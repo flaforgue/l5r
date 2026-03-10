@@ -30,7 +30,9 @@ h1 {
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  color: #9e8060;
+  margin-bottom: 0.5rem;
 }
 
 h3 {
@@ -119,4 +121,12 @@ h3 {
 
 button {
   cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M1 1l14 14M15 1 1 15'/%3E%3C/svg%3E");
+}
+
+.react-tooltip {
+  z-index: 100;
 }

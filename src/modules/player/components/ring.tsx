@@ -1,4 +1,5 @@
 import { CenteredContainer } from "../../../components/centered-container";
+import RawNumberInput from "../../../components/raw-number-input";
 import { cn } from "../../../shadcn/lib/utils";
 
 interface RingProps {
@@ -17,7 +18,7 @@ export function Ring({ value, setValue, ringType, className = "", labelClassName
     <div className={className}>
       <img height={80} width={80} src={RING_IULLUSTRATIONS_URLS[ringType]} />
       <p
-        className={cn(labelClassName, "text-sm")}
+        className={cn("text-sm", labelClassName)}
         style={{
           color: ringInfos.color,
         }}
@@ -25,43 +26,33 @@ export function Ring({ value, setValue, ringType, className = "", labelClassName
         {ringInfos.label}
       </p>
       <CenteredContainer
-        className={cn(inputClassName, `
-          absolute
-          h-9
-          w-9
-          rounded-full
-          border-2
-          border-[#f4ede2]
-        `)}
+        className={cn(
+          `
+            absolute
+            h-9
+            w-9
+            rounded-full
+            border-2
+            border-[#f4ede2]
+          `,
+          inputClassName,
+        )}
         style={{
           backgroundColor: ringInfos.color,
         }}
       >
-        <input
+        <RawNumberInput
           id={`ring-${ringType}`}
-          type="number"
           value={value}
-          onChange={(e) => {
-            setValue(Number(e.target.value));
-          }}
+          onChange={setValue}
           min={0}
           max={5}
           className={`
             h-full
             w-full
-
-            [appearance:textfield]
-
             rounded-full
             text-center
-            font-title
             text-white
-            outline-none
-
-            focus:bg-white/50
-
-            [&::-webkit-inner-spin-button]:appearance-none
-            [&::-webkit-outer-spin-button]:appearance-none
           `}
         />
       </CenteredContainer>

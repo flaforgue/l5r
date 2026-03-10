@@ -2,30 +2,44 @@ import type * as React from "react";
 
 import { cn } from "@/shadcn/lib/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+function Card({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card"
-      className={cn(
-        `
+      className={cn(`
+        relative
+        overflow-hidden
+        rounded
+        py-6
+        shadow
+      `, className)}
+      {...props}
+    >
+      <div
+        className={`
+          absolute
+          inset-0
+          bg-cover
+          opacity-50
+        `}
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}/images/paper.png)`,
+          backgroundSize: "cover",
+          backgroundPosition: "bottom",
+        }}
+      />
+      <div
+        className={`
+          relative
           flex
           flex-col
           gap-6
-          rounded-xl
-          bg-card
-          py-6
           text-card-foreground
-          shadow
-        `,
-        className,
-      )}
-      style={{
-        backgroundImage: `url(${import.meta.env.BASE_URL}/images/background.png)`,
-        backgroundSize: "cover",
-        backgroundPosition: "bottom",
-      }}
-      {...props}
-    />
+        `}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
 

@@ -30,7 +30,7 @@ export default function TextareaInput({
   return (
     <div className={className}>
       {label !== undefined && (
-        <Label htmlFor={id} className={cn(labelClassName, "mb-1")}>
+        <Label htmlFor={id} className={cn("mb-1", labelClassName)}>
           {label}
         </Label>
       )}
@@ -51,7 +51,6 @@ export default function TextareaInput({
             border-olive-700
             bg-transparent
             p-2
-            pr-6
             font-sans
             text-sm
             text-[#3a2410]
@@ -60,7 +59,7 @@ export default function TextareaInput({
             outline-none
 
             placeholder:tracking-wider
-            placeholder:text-gray-50
+            placeholder:text-gray-500
 
             focus:bg-white/50
           `}

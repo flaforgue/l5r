@@ -4,8 +4,8 @@ import { RingsImage } from "./images/rings-image";
 import { CenteredContainer } from "./centered-container";
 import { SamuraiImage } from "./images/samurai-image";
 import { MainNavLink } from "./main-nav-link";
-import { ScrollImage } from "./images/scroll-image";
-import { FanImage } from "./images/fan";
+import { FanImage } from "./images/fan-image";
+import { BackpackImage } from "./images/backpack-image";
 
 interface LayoutProps {
   children?: ReactNode | ReactNode[];
@@ -59,18 +59,19 @@ export function Layout({ children }: LayoutProps) {
           `}
         >
           <MainNavLink to="/player/character" label="Personnage" icon={<SamuraiImage />} />
+          <MainNavLink to="/player/inventory" label="Inventaire" icon={<BackpackImage />} />
           <MainNavLink
             isDisabled={true}
             to="/player/interlude"
             label="Interlude"
             icon={<FanImage />}
           />
-          <MainNavLink
+          {/* <MainNavLink
             isDisabled={true}
             to="/player/notes"
             label="Notes"
             icon={<ScrollImage />}
-          />
+          /> */}
         </CenteredContainer>
       </div>
       <div
@@ -78,10 +79,15 @@ export function Layout({ children }: LayoutProps) {
           ml-16
           min-h-screen
           w-[calc(100vw-var(--spacing)*16)]
-          bg-gray-50
+          bg-cover
+          bg-fixed
+          bg-no-repeat
           px-8
           py-4
         `}
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}/images/background.jpg)`,
+        }}
       >
         <Outlet />
         {children}

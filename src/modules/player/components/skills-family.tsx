@@ -1,3 +1,4 @@
+import RawNumberInput from "../../../components/raw-number-input";
 import { Approaches } from "./approaches";
 import type { RingType } from "./ring";
 
@@ -14,13 +15,6 @@ interface SkillsFamilyProps {
 }
 
 export function SkillsFamily({ label, skills, approaches, className = "" }: SkillsFamilyProps) {
-  const onChange = (value: unknown, updateValue: (value: number) => void) => {
-    const castedValue = Number(value);
-    const validCastedValue = isNaN(castedValue) ? 0 : castedValue;
-    const validValue = Math.max(0, Math.min(validCastedValue, 5));
-    updateValue(validValue);
-  };
-
   return (
     <div
       className={`
@@ -74,28 +68,16 @@ export function SkillsFamily({ label, skills, approaches, className = "" }: Skil
               >
                 {skill.label}
               </p>
-              <input
+              <RawNumberInput
                 id={`skill-${skill.id}`}
-                type="number"
                 value={skill.value}
                 min={0}
                 max={5}
-                onChange={(e) => {
-                  onChange(e.target.value, skill.updateValue);
-                }}
+                onChange={skill.updateValue}
                 className={`
                   w-16
-
-                  [appearance:textfield]
-
                   rounded-t
                   text-center
-                  outline-none
-
-                  focus:bg-white/50
-
-                  [&::-webkit-inner-spin-button]:appearance-none
-                  [&::-webkit-outer-spin-button]:appearance-none
                 `}
               />
             </div>

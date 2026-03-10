@@ -1,7 +1,7 @@
-import type { ChangeEvent } from "react";
 import { useId } from "react";
 import { Label } from "./label";
 import { cn } from "../shadcn/lib/utils";
+import RawNumberInput, { fixNumberInputValue } from "./raw-number-input";
 
 interface NumberInputProps {
   label?: string;
@@ -11,37 +11,26 @@ interface NumberInputProps {
   onChange: (v: number) => void;
   className?: string;
   labelClassName?: string;
+  inputStyle?: React.CSSProperties;
 }
 
 export default function NumberInput({
   label,
   value,
-  min,
-  max,
+  min = 0,
+  max = Infinity,
   onChange,
   className = "",
   labelClassName = "",
+  inputStyle = {},
 }: NumberInputProps) {
   const id = `number-input-${useId()}`;
-  const minValue = min ?? 0;
-  const maxValue = max ?? Infinity;
-
-  const onChangeProxy = (value: unknown) => {
-    const castedValue = Number(value);
-    const validCastedValue = isNaN(castedValue) ? 0 : castedValue;
-    const validValue = Math.max(minValue, Math.min(validCastedValue, maxValue));
-    onChange(Math.round(validValue * 100) / 100);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChangeProxy(Number(e.target.value));
-  };
 
   const increment = () => {
-    onChangeProxy(value + 1);
+    onChange(fixNumberInputValue(value + 1, min, max));
   };
   const decrement = () => {
-    onChangeProxy(value - 1);
+    onChange(fixNumberInputValue(value - 1, min, max));
   };
 
   const btnClass = `
@@ -61,11 +50,7 @@ export default function NumberInput({
       {label !== undefined && (
         <Label
           htmlFor={id}
-          className={cn(`
-            mb-1
-
-            ${labelClassName}
-          `)}
+          className={cn("mb-1", labelClassName)}
         >
           {label}
         </Label>
@@ -75,6 +60,7 @@ export default function NumberInput({
           flex
           max-w-36
           items-stretch
+          bg-[#f5ede0]
           text-gray-900
           shadow-sm
         `}
@@ -99,38 +85,22 @@ export default function NumberInput({
           </span>
         </button>
 
-        <input
-          type="number"
+        <RawNumberInput
           id={id}
-          name={id}
-          onChange={handleChange}
-          min={minValue}
-          max={maxValue}
+          onChange={onChange}
+          min={min}
+          max={max}
           value={value}
           className={`
             block
             w-16
-
-            [appearance:textfield]
-
             border-y
             border-[#c8a06a]
-            bg-[#f5ede0]
             px-1
             py-2
             text-center
-            font-serif
-            text-sm
-            text-[#3a2410]
-            transition-colors
-            duration-150
-            outline-none
-
-            focus:bg-white/50
-
-            [&::-webkit-inner-spin-button]:appearance-none
-            [&::-webkit-outer-spin-button]:appearance-none
           `}
+          style={inputStyle}
         />
 
         <button
@@ -153,15 +123,18 @@ export default function NumberInput({
           </span>
         </button>
       </div>
-      {max !== undefined && (
+      {max !== Infinity && (
         <Label
           htmlFor={id}
-          className={cn(labelClassName, `
-            mt-1
-            font-sans!
-            text-xs
-            normal-case!
-          `)}
+          className={cn(
+            `
+              mt-1
+              font-sans!
+              text-xs
+              normal-case!
+            `,
+            labelClassName,
+          )}
         >
           Max.
           {" "}

@@ -66,7 +66,7 @@ export function Skills() {
     >
       <SkillsFamily
         className="flex-1"
-        label="Comp. Artisanales"
+        label="創 Comp. Artisanales"
         skills={[
           {
             id: "aesthetic",
@@ -104,7 +104,7 @@ export function Skills() {
 
       <SkillsFamily
         className="flex-1"
-        label="Comp. Sociales"
+        label="係 Comp. Sociales"
         skills={[
           {
             id: "command",
@@ -142,7 +142,7 @@ export function Skills() {
 
       <SkillsFamily
         className="flex-1"
-        label="Comp. Savantes"
+        label="知 Comp. Savantes"
         skills={[
           {
             id: "culture",
@@ -186,7 +186,7 @@ export function Skills() {
 
       <SkillsFamily
         className="flex-1"
-        label="Comp. Pro."
+        label="仕 Comp. Pro."
         skills={[
           {
             id: "commerce",
@@ -230,7 +230,7 @@ export function Skills() {
 
       <SkillsFamily
         className="flex-1"
-        label="Comp. Martiales"
+        label="戦 Comp. Martiales"
         skills={[
           {
             id: "physicalCondition",

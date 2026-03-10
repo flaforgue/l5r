@@ -8,7 +8,7 @@ export function VoidPoints() {
 
   return (
     <NumberInput
-      label="Points de Vide"
+      label="の Points de Vide"
       value={voidPoints}
       onChange={updateVoidPoints}
       min={0}

@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { ARMORS, WEAPONS } from "../../items/items";
 
 interface Store {
+  // Identity
   clanName: string;
   updateClanName: (clanName: string) => void;
   familyName: string;
@@ -12,7 +14,48 @@ interface Store {
   updateHonor: (honor: number) => void;
   fame: number;
   updateFame: (fame: number) => void;
+  advantage: string;
+  updateAdvantage: (advantage: string) => void;
+  dilemma: string;
+  updateDilemma: (dilemma: string) => void;
+  loseControlAttitude: string;
+  updateLoseControlAttitude: (loseControlAttitude: string) => void;
 
+  // Physical State
+  exhaustion: number;
+  updateExhaustion: (exhaustion: number) => void;
+  physicalAlteration: string;
+  updatePhysicalAlteration: (physicalAlteration: string) => void;
+  criticalHits: number;
+  updateCriticalHits: (criticalHits: number) => void;
+
+  // Psycological State
+  conflict: number;
+  updateConflict: (conflict: number) => void;
+  voidPoints: number;
+  updateVoidPoints: (voidPoints: number) => void;
+
+  // Armors
+  armorIds: string[];
+  updateArmorIds: (armorIds: string[]) => void;
+  equippedArmorId: string | null;
+  updateEquippedArmorId: (equippedArmorId: string | null) => void;
+
+  // Weapons
+  weaponIds: string[];
+  updateWeaponIds: (weaponIds: string[]) => void;
+  equippedWeaponId: string | null;
+  updateEquippedWeaponId: (equippedWeaponId: string | null) => void;
+
+  // Inventory
+  zeni: number;
+  updateZeni: (zeni: number) => void;
+  itemIds: string[];
+  updateItemIds: (itemIds: string[]) => void;
+  specialItems: string;
+  updateSpecialItems: (specialItems: string) => void;
+
+  // Ring values
   airValue: number;
   updateAirValue: (airValue: number) => void;
   earthValue: number;
@@ -24,12 +67,7 @@ interface Store {
   voidValue: number;
   updateVoidValue: (voidValue: number) => void;
 
-  voidPoints: number;
-  updateVoidPoints: (voidPoints: number) => void;
-
-  advantage: string;
-  updateAdvantage: (advantage: string) => void;
-
+  // Skills
   aestheticValue: number;
   updateAestheticValue: (aestheticValue: number) => void;
   compositionValue: number;
@@ -105,6 +143,59 @@ export const useCharacterStore = create<Store>()(
         set({ fame });
       },
 
+      exhaustion: 0,
+      updateExhaustion: (exhaustion) => {
+        set({ exhaustion });
+      },
+      physicalAlteration: "",
+      updatePhysicalAlteration: (physicalAlteration) => {
+        set({ physicalAlteration });
+      },
+      criticalHits: 0,
+      updateCriticalHits: (criticalHits) => {
+        set({ criticalHits });
+      },
+
+      armorIds: ARMORS.map((armor) => armor.id),
+      updateArmorIds: (armorIds) => {
+        set({ armorIds });
+      },
+      equippedArmorId: null,
+      updateEquippedArmorId: (equippedArmorId) => {
+        set({ equippedArmorId });
+      },
+
+      weaponIds: WEAPONS.map((weapon) => weapon.id),
+      updateWeaponIds: (weaponIds) => {
+        set({ weaponIds });
+      },
+      equippedWeaponId: null,
+      updateEquippedWeaponId: (equippedWeaponId) => {
+        set({ equippedWeaponId });
+      },
+
+      zeni: 0,
+      updateZeni: (zeni) => {
+        set({ zeni });
+      },
+      itemIds: [],
+      updateItemIds: (itemIds) => {
+        set({ itemIds });
+      },
+      specialItems: "",
+      updateSpecialItems: (specialItems) => {
+        set({ specialItems });
+      },
+
+      conflict: 0,
+      updateConflict: (conflict) => {
+        set({ conflict });
+      },
+      loseControlAttitude: "",
+      updateLoseControlAttitude: (loseControlAttitude) => {
+        set({ loseControlAttitude });
+      },
+
       airValue: 0,
       updateAirValue: (airValue) => {
         set({ airValue });
@@ -134,6 +225,11 @@ export const useCharacterStore = create<Store>()(
       advantage: "",
       updateAdvantage: (advantage: string) => {
         set({ advantage });
+      },
+
+      dilemma: "",
+      updateDilemma: (dilemma: string) => {
+        set({ dilemma });
       },
 
       aestheticValue: 0,

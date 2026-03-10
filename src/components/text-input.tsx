@@ -25,7 +25,7 @@ export default function TextInput({
   return (
     <div className={className}>
       {label !== undefined && (
-        <Label htmlFor={id}>
+        <Label htmlFor={id} className="mb-1">
           {label}
         </Label>
       )}
@@ -46,7 +46,7 @@ export default function TextInput({
             border-[#c8a06a]
             bg-transparent
             p-2
-            pr-6
+            py-1
             font-sans
             text-sm
             text-[#3a2410]

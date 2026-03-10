@@ -3,6 +3,7 @@ import { HomePage } from "./pages/home.page";
 import { Layout } from "../../components/layout";
 import { CharacterPage } from "./pages/character.page";
 import { NotesPage } from "./pages/notes.page";
+import { InventoryPage } from "./pages/inventory.page";
 
 export const PLAYER_ROUTES: RouteObject[] = [
   {
@@ -21,6 +22,10 @@ export const PLAYER_ROUTES: RouteObject[] = [
       {
         path: "character",
         element: <CharacterPage />,
+      },
+      {
+        path: "inventory",
+        element: <InventoryPage />,
       },
       {
         path: "notes",

@@ -1,8 +1,11 @@
 import { CenteredContainer } from "../../../components/centered-container";
 import NumberInput from "../../../components/number-input";
 import TextInput from "../../../components/text-input";
+import TextareaInput from "../../../components/textarea-input";
 import { useCharacterStore } from "../stores/character.store";
+import { Attention } from "./attention";
 import { Rings } from "./rings";
+import { Vigilance } from "./vigilance";
 
 export function Identity() {
   const {
@@ -16,6 +19,8 @@ export function Identity() {
     updateHonor,
     fame,
     updateFame,
+    dilemma,
+    updateDilemma,
   } = useCharacterStore();
 
   return (
@@ -28,54 +33,68 @@ export function Identity() {
     >
       <div
         className={`
-          flex
-          gap-8
+          grid
+          grid-cols-3
+          gap-4
         `}
       >
         <TextInput
           label="族 CLAN"
           value={clanName}
           onChange={updateClanName}
-          className="w-32"
         />
         <TextInput
           label="家 FAMILLE"
           value={familyName}
           onChange={updateFamilyName}
-          className="w-32"
         />
         <TextInput
           label="名 PRÉNOM"
           value={characterName}
           onChange={updateCharacterName}
-          className="w-32"
         />
       </div>
-
+      <div>
+        <TextareaInput
+          label="Dilemme Personnel"
+          value={dilemma}
+          onChange={updateDilemma}
+          rows={4}
+        />
+      </div>
       <div
         className={`
-          flex
-          gap-8
+          grid
+          grid-cols-3
+          gap-4
         `}
       >
         <NumberInput
           label="光 GLOIRE"
           value={fame}
           onChange={updateFame}
-          className="w-32"
           max={100}
         />
         <NumberInput
           label="誉 HONNEUR"
           value={honor}
           onChange={updateHonor}
-          className="w-32"
           max={100}
         />
       </div>
-      <CenteredContainer className="py-4">
+      <CenteredContainer>
         <Rings />
       </CenteredContainer>
+      <div
+        className={`
+          flex
+          justify-center
+          gap-8
+        `}
+      >
+        <Attention />
+        <Vigilance />
+      </div>
     </div>
   );
 }
