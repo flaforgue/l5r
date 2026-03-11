@@ -60,12 +60,7 @@ export function Layout({ children }: LayoutProps) {
         >
           <MainNavLink to="/player/character" label="Personnage" icon={<SamuraiImage />} />
           <MainNavLink to="/player/inventory" label="Inventaire" icon={<BackpackImage />} />
-          <MainNavLink
-            isDisabled={true}
-            to="/player/interlude"
-            label="Interlude"
-            icon={<FanImage />}
-          />
+          <MainNavLink to="/player/interlude" label="Interlude" icon={<FanImage />} />
           {/* <MainNavLink
             isDisabled={true}
             to="/player/notes"

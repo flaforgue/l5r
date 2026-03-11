@@ -72,6 +72,10 @@ interface Store {
   voidValue: number;
   updateVoidValue: (voidValue: number) => void;
 
+  // Experience
+  experience: number;
+  updateExperience: (experience: number) => void;
+
   // Skills
   aestheticValue: number;
   updateAestheticValue: (aestheticValue: number) => void;
@@ -224,6 +228,11 @@ export const useCharacterStore = create<Store>()(
       voidValue: 0,
       updateVoidValue: (voidValue) => {
         set({ voidValue });
+      },
+
+      experience: 0,
+      updateExperience: (experience: number) => {
+        set({ experience });
       },
 
       voidPoints: 0,

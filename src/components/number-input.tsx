@@ -14,6 +14,8 @@ interface NumberInputProps {
   labelClassName?: string;
   inputStyle?: React.CSSProperties;
   helperText?: ReactNode;
+  increaseButtonTooltip?: string | undefined;
+  isIncreaseDisabled?: boolean;
 }
 
 export default function NumberInput({
@@ -25,7 +27,9 @@ export default function NumberInput({
   className = "",
   labelClassName = "",
   inputStyle = {},
+  isIncreaseDisabled = false,
   helperText,
+  increaseButtonTooltip,
 }: NumberInputProps) {
   const id = `number-input-${useId()}`;
 
@@ -115,10 +119,20 @@ export default function NumberInput({
         />
 
         <button
+          data-tooltip-id="global"
+          data-tooltip-content={increaseButtonTooltip ?? null}
+          disabled={isIncreaseDisabled}
           type="button"
           onClick={increment}
           className={`
             ${btnClass}
+            ${isIncreaseDisabled
+      ? `
+        cursor-not-allowed!
+        bg-[#f5ede0]!
+        opacity-30
+      `
+      : ""}
 
             rounded-r
             border-l-0
