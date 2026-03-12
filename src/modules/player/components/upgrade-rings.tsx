@@ -16,7 +16,7 @@ export function UpgradeRings() {
     voidValue,
     updateVoidValue,
     experience,
-    updateExperience,
+    spendExperience,
   } = useCharacterStore();
 
   const ringValues: Record<RingType, number> = {
@@ -53,25 +53,26 @@ export function UpgradeRings() {
     >
       {RING_TYPES.map((ringType) => {
         const ringValue = ringValues[ringType];
-        const upgradeCost = (ringValue + 1) * 3;
+        const upgradeCost = 3 * (ringValue + 1);
 
-        const max = Math.min(5, voidValue + lowestRingValue);
-        const canBeUpgraded = ringValue < max;
+        const restrictionValue = voidValue + lowestRingValue;
+        const isRestricted = ringValue >= restrictionValue;
+        const isMax = ringValue >= 5;
         const hasEnoughExperience = experience >= upgradeCost;
-        const isDisabled = !canBeUpgraded || !hasEnoughExperience;
+        const isDisabled = isMax || isRestricted || !hasEnoughExperience;
 
         function upgradeRingValue(value: number) {
           if (isDisabled) {
             return;
           }
 
-          updateExperience(experience - upgradeCost);
+          spendExperience(upgradeCost);
           updateRingValue(ringType, value);
         }
 
         function downgradeRingValue(value: number) {
-          const downgradeCost = (value + 1) * 3;
-          updateExperience(experience + downgradeCost);
+          const downgradeCost = -3 * (value + 1);
+          spendExperience(downgradeCost);
           updateRingValue(ringType, value);
         }
 
@@ -79,9 +80,9 @@ export function UpgradeRings() {
           <div
             key={ringType}
             className={`
-              grid
-              grid-cols-2
-              gap-1
+              flex
+              items-center
+              justify-between
             `}
           >
             <div
@@ -98,6 +99,8 @@ export function UpgradeRings() {
             <NumberInput
               label={`Coût : ${upgradeCost}`}
               value={ringValue}
+              className="w-28"
+              inputClassName="w-10"
               onChange={(value) => {
                 if (value > ringValue) {
                   upgradeRingValue(value);
@@ -105,9 +108,14 @@ export function UpgradeRings() {
                   downgradeRingValue(value);
                 }
               }}
-              max={max}
+              max={Math.min(5, restrictionValue)}
+              min={1}
               isIncreaseDisabled={isDisabled}
-              increaseButtonTooltip={getTooltipContent(canBeUpgraded, hasEnoughExperience)}
+              increaseButtonTooltip={getTooltipContent({
+                isMax,
+                isRestricted,
+                hasEnoughExperience,
+              })}
             />
           </div>
         );
@@ -124,9 +132,21 @@ const ringHelperTexts: Record<RingType, string> = {
   void: "Augmente le max de points de vide",
 };
 
-function getTooltipContent(canBeUpgraded: boolean, hasEnoughExperience: boolean): string | undefined {
-  if (!canBeUpgraded) {
-    return "Vous ne pouvez pas augmenter cet anneau (max 5 ou la somme du plus faible anneau et de l'anneau de vide)";
+function getTooltipContent({
+  isMax,
+  isRestricted,
+  hasEnoughExperience,
+}: {
+  isMax: boolean;
+  isRestricted: boolean;
+  hasEnoughExperience: boolean;
+}): string | undefined {
+  if (isMax) {
+    return "Cet anneau est déjà au maximum";
+  }
+
+  if (isRestricted) {
+    return "Aucun anneau ne peut dépasser la somme de l'anneau de vide et de l'anneau le plus faible";
   }
 
   if (!hasEnoughExperience) {

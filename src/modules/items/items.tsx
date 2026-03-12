@@ -111,7 +111,7 @@ export const WEAPONS: [Item, Item, ...Item[]] = [
     Portée : 2 - 4
     Dégâts : 4
   `,
-    shortDescription: "D: 5+1",
+    shortDescription: "D: 4",
     illustration: (<Bow1Image />),
   },
 ];
@@ -138,17 +138,3 @@ export const ITEMS = [
     illustration: (<PoisonImage />),
   },
 ];
-
-export function getItemById(id: string): Item | undefined {
-  return ITEMS.find((item) => item.id === id);
-}
-
-export function removeItemById(itemIds: string[], itemToRemoveId: string) {
-  const newItemIds = [...itemIds];
-  const index = newItemIds.findIndex((itemId) => itemId === itemToRemoveId);
-  if (index !== -1) {
-    newItemIds.splice(index, 1);
-  }
-
-  return newItemIds;
-}

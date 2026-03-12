@@ -29,7 +29,6 @@ const buttonVariants = cva(
     aria-invalid:border-destructive
     aria-invalid:ring-destructive/20
 
-    [&_svg]:pointer-events-none
     [&_svg]:shrink-0
 
     [&_svg:not([class*='size-'])]:size-4

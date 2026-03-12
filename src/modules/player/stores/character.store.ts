@@ -2,11 +2,13 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { RingType } from "../components/ring";
 import { ARMORS, WEAPONS } from "../../items/items";
+import type { ClanId } from "../../techniques/clans";
+import type { Alteration } from "../../alterations/use-alterations";
 
 interface Store {
   // Identity
-  clanName: string;
-  updateClanName: (clanName: string) => void;
+  clanId: ClanId;
+  updateClanId: (clanId: ClanId) => void;
   familyName: string;
   updateFamilyName: (familyName: string) => void;
   characterName: string;
@@ -29,8 +31,8 @@ interface Store {
   updateActiveRing: (activeRing: RingType) => void;
   exhaustion: number;
   updateExhaustion: (exhaustion: number) => void;
-  physicalAlteration: string;
-  updatePhysicalAlteration: (physicalAlteration: string) => void;
+  alterationId: string;
+  updateAlteration: (alteration: Alteration) => void;
   criticalHits: number;
   updateCriticalHits: (criticalHits: number) => void;
 
@@ -75,6 +77,8 @@ interface Store {
   // Experience
   experience: number;
   updateExperience: (experience: number) => void;
+  spentExperience: number;
+  spendExperience: (amount: number) => void;
 
   // Skills
   aestheticValue: number;
@@ -130,10 +134,10 @@ interface Store {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const useCharacterStore = create<Store>()(
   persist(
-    (set) => ({
-      clanName: "",
-      updateClanName: (clanName) => {
-        set({ clanName });
+    (set, get) => ({
+      clanId: "lion",
+      updateClanId: (clanId) => {
+        set({ clanId });
       },
       familyName: "",
       updateFamilyName: (familyName) => {
@@ -160,12 +164,17 @@ export const useCharacterStore = create<Store>()(
       updateExhaustion: (exhaustion) => {
         set({ exhaustion });
       },
-      physicalAlteration: "",
-      updatePhysicalAlteration: (physicalAlteration) => {
-        set({ physicalAlteration });
+      alterationId: "none",
+      updateAlteration: (alteration) => {
+        set({ alterationId: alteration.id });
+        alteration.apply();
       },
       criticalHits: 0,
       updateCriticalHits: (criticalHits) => {
+        if (get().criticalHits === 0 && criticalHits > 0) {
+          set({ conflict: get().conflict + 3 });
+        }
+
         set({ criticalHits });
       },
 
@@ -233,6 +242,13 @@ export const useCharacterStore = create<Store>()(
       experience: 0,
       updateExperience: (experience: number) => {
         set({ experience });
+      },
+      spentExperience: 0,
+      spendExperience: (amount: number) => {
+        set({
+          experience: Math.max(0, get().experience - amount),
+          spentExperience: Math.max(0, get().spentExperience + amount),
+        });
       },
 
       voidPoints: 0,

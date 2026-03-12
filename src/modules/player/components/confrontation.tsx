@@ -1,10 +1,46 @@
 import { HelperText } from "../../../components/helper-text";
-import { PhysicalState } from "./physical-state";
-import { PsycologicalState } from "./psycological-state";
+import { KoImage } from "../../../components/images/ko-image";
+import { TemperLostImage } from "../../../components/images/temper-lost-image";
+import { useCharacterStore } from "../stores/character.store";
+import { getEndurance, PhysicalState } from "./physical-state";
+import { getSelfControl, PsychologicalState } from "./psychological-state";
 
 export function Confrontation() {
+  const { fireValue, earthValue, waterValue, exhaustion, criticalHits, conflict } = useCharacterStore();
+  const endurance = getEndurance(fireValue, earthValue);
+  const isDown = exhaustion >= endurance || criticalHits >= 4;
+
+  const selfControl = getSelfControl(waterValue, earthValue);
+  const isTemperLost = conflict >= selfControl;
+
   return (
-    <div>
+    <div className="relative">
+      {isDown && (
+        <div
+          className={`
+            absolute
+            -inset-6
+            bg-red-600/10
+            p-12
+            text-red-800/30
+          `}
+        >
+          <KoImage />
+        </div>
+      )}
+      {!isDown && isTemperLost && (
+        <div
+          className={`
+            absolute
+            -inset-6
+            bg-violet-900/20
+            p-16
+            text-violet-900/20
+          `}
+        >
+          <TemperLostImage />
+        </div>
+      )}
       <h2
         className={`
           flex
@@ -15,6 +51,7 @@ export function Confrontation() {
       >
         <span>Confrontation</span>
         <HelperText
+          className="relative"
           helperText={(
             <div className="text-gray-400">
               <p>
@@ -95,7 +132,7 @@ export function Confrontation() {
         `}
       >
         <PhysicalState />
-        <PsycologicalState />
+        <PsychologicalState />
       </div>
     </div>
   );

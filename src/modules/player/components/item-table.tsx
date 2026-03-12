@@ -2,8 +2,9 @@ import { Button } from "../../../shadcn/ui/button";
 import { Table } from "../../../components/table";
 import { TableHeader } from "../../../components/table-header";
 import { TableCell } from "../../../components/table-cell";
-import { getItemById, removeItemById } from "../../items/items";
 import { CircleXIcon } from "lucide-react";
+import { getItemById } from "../../items/utils/get-item-by-id";
+import { removeItemById } from "../../items/utils/remove-item-by-id";
 
 interface ItemTableProps {
   title: string;
@@ -18,6 +19,11 @@ export function ItemTable({
   updateItemIds,
   className = "",
 }: ItemTableProps) {
+  const items = itemIds
+    .map((itemId) => getItemById(itemId))
+    .filter((item) => item !== undefined)
+    .sort((a, b) => a.label.localeCompare(b.label));
+
   return (
     <div className={className}>
       <h2>
@@ -32,14 +38,9 @@ export function ItemTable({
           </tr>
         </thead>
         <tbody>
-          {itemIds.map((itemId, index) => {
-            const item = getItemById(itemId);
-            if (item === undefined) {
-              return null;
-            }
-
+          {items.map((item, index) => {
             return (
-              <tr key={`item-${itemId}-${index}`}>
+              <tr key={`item-${item.id}-${index}`}>
                 <TableCell>
                   <div
                     className={`
@@ -70,7 +71,7 @@ export function ItemTable({
                       hover:text-rose-600
                     `}
                     onClick={() => {
-                      updateItemIds(removeItemById(itemIds, itemId));
+                      updateItemIds(removeItemById(itemIds, item.id));
                     }}
                   >
                     <CircleXIcon className="size-4" />

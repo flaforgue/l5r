@@ -43,7 +43,15 @@ export default function TextareaInput({
           <Label htmlFor={id} className={labelClassName}>
             {label}
           </Label>
-          {helperText !== undefined && <HelperText className="text-olive-700" helperText={helperText} />}
+          {helperText !== undefined && (
+            <HelperText
+              className={`
+                relative
+                text-olive-700
+              `}
+              helperText={helperText}
+            />
+          )}
         </div>
       )}
       <div className="relative">

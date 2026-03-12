@@ -79,10 +79,18 @@ export default function InputAutocomplete({
 
   const [focusedIndex, setFocusedIndex] = useState(-1);
   useKeydownHandler("Escape", (e: KeyboardEvent) => {
+    if (!isPopoverOpen) {
+      return;
+    }
+
     e.preventDefault();
     resetValueAndCloseDropdown();
   });
   useKeydownHandler("ArrowUp", (e: KeyboardEvent) => {
+    if (!isPopoverOpen) {
+      return;
+    }
+
     e.preventDefault();
     if (focusedIndex > 0) {
       setFocusedIndex(focusedIndex - 1);
@@ -91,6 +99,10 @@ export default function InputAutocomplete({
     }
   });
   useKeydownHandler("ArrowDown", (e: KeyboardEvent) => {
+    if (!isPopoverOpen) {
+      return;
+    }
+
     e.preventDefault();
     if (focusedIndex < filteredOptions.length - 1) {
       setFocusedIndex(focusedIndex + 1);
@@ -99,6 +111,10 @@ export default function InputAutocomplete({
     }
   });
   useKeydownHandler("Enter", (e: KeyboardEvent) => {
+    if (!isPopoverOpen) {
+      return;
+    }
+
     e.preventDefault();
     const option = filteredOptions[focusedIndex];
     if (option !== undefined && option.isDisabled !== true) {

@@ -1,15 +1,18 @@
 import NumberInput from "../../../components/number-input";
+import { SelectInput } from "../../../components/select-input";
 import TextInput from "../../../components/text-input";
 import TextareaInput from "../../../components/textarea-input";
+import { CLANS, isClanId } from "../../techniques/clans";
 import { useCharacterStore } from "../stores/character.store";
 import { Attention } from "./attention";
+import { CharacterRank } from "./character-rank";
 import { Rings } from "./rings";
 import { Vigilance } from "./vigilance";
 
 export function Identity() {
   const {
-    clanName,
-    updateClanName,
+    clanId,
+    updateClanId,
     familyName,
     updateFamilyName,
     characterName,
@@ -34,15 +37,38 @@ export function Identity() {
     >
       <div
         className={`
-          grid
-          grid-cols-3
+          flex
           gap-4
         `}
       >
-        <TextInput
+        <SelectInput
           label="族 CLAN"
-          value={clanName}
-          onChange={updateClanName}
+          value={clanId}
+          className="w-34"
+          onChange={(value) => {
+            if (isClanId(value)) {
+              updateClanId(value);
+            }
+          }}
+          options={Object.values(CLANS).map((clan) => ({
+            value: clan.id,
+            displayContent: (
+              <div
+                className={`
+                  flex
+                  items-center
+                  gap-1
+                `}
+              >
+                <img
+                  src={clan.illustrationUrl}
+                  alt={clan.label}
+                  className="size-4"
+                />
+                {clan.label}
+              </div>
+            ),
+          }))}
         />
         <TextInput
           label="家 FAMILLE"
@@ -102,6 +128,8 @@ export function Identity() {
             </div>
           )}
         />
+
+        <CharacterRank />
       </div>
       <div
         className={`
@@ -110,7 +138,7 @@ export function Identity() {
           px-4
         `}
       >
-        <Rings />
+
         <div
           className={`
             flex
@@ -123,6 +151,7 @@ export function Identity() {
           <Attention />
           <Vigilance />
         </div>
+        <Rings />
       </div>
       <TextareaInput
         label="Capacité d'école"

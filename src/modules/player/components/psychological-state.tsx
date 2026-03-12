@@ -2,7 +2,11 @@ import NumberInput from "../../../components/number-input";
 import TextareaInput from "../../../components/textarea-input";
 import { useCharacterStore } from "../stores/character.store";
 
-export function PsycologicalState() {
+export function getSelfControl(waterValue: number, earthValue: number): number {
+  return (waterValue + earthValue) * 2;
+}
+
+export function PsychologicalState() {
   const {
     waterValue,
     earthValue,
@@ -11,7 +15,7 @@ export function PsycologicalState() {
     loseControlAttitude,
     updateLoseControlAttitude,
   } = useCharacterStore();
-  const selfControl = (waterValue + earthValue) * 2;
+  const selfControl = getSelfControl(waterValue, earthValue);
 
   return (
     <div
@@ -27,9 +31,10 @@ export function PsycologicalState() {
         onChange={updateConflict}
         label="対 Conflit"
         inputStyle={{
-          color: getScaledColor(conflict, selfControl),
+          backgroundColor: getScaledColor(conflict, selfControl),
         }}
         className="w-28"
+        inputClassName="w-10 text-white"
         helperText={(
           <div>
             <p>Si le Conflit atteint son maximum :</p>
@@ -58,17 +63,12 @@ export function PsycologicalState() {
   );
 }
 
-function getScaledColor(value: number, max: number): string {
-  const from = { l: 0.723, c: 0.219, h: 149.579 };
-  const to = { l: 0.705, c: 0.213, h: 47.604 };
+export function getScaledColor(value: number, max: number): string {
+  const from = { l: 0.58, c: 0.04, h: 215 }; // bleu-gris désaturé
+  const to = { l: 0.38, c: 0.19, h: 294 }; // ~violet-900
 
   const ratio = max > 0 ? Math.min(value / max, 1) : 0;
-
   const lerp = (a: number, b: number) => a + ratio * (b - a);
 
-  const l = lerp(from.l, to.l);
-  const c = lerp(from.c, to.c);
-  const h = lerp(from.h, to.h);
-
-  return `oklch(${l.toFixed(3)} ${c.toFixed(3)} ${h.toFixed(3)})`;
+  return `oklch(${lerp(from.l, to.l).toFixed(3)} ${lerp(from.c, to.c).toFixed(3)} ${lerp(from.h, to.h).toFixed(3)})`;
 }

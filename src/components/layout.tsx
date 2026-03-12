@@ -74,6 +74,7 @@ export function Layout({ children }: LayoutProps) {
           ml-16
           min-h-screen
           w-[calc(100vw-var(--spacing)*16)]
+          min-w-[1280px]!
           bg-cover
           bg-fixed
           bg-no-repeat

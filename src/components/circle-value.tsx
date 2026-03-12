@@ -5,7 +5,7 @@ import { CircleImage } from "./images/circle-image";
 
 interface CircleValueProps {
   value: number;
-  label: string;
+  label?: string;
   iconClassName?: string;
   textClassName?: string;
   helperText?: ReactNode;
@@ -59,7 +59,7 @@ export function CircleValue({ value, label, iconClassName = "", textClassName = 
         )}
       >
         {helperText !== undefined && <HelperText helperText={helperText} />}
-        <p className="text-sm">{label}</p>
+        {label !== undefined && <p className="text-sm">{label}</p>}
       </div>
     </div>
   );

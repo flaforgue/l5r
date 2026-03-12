@@ -1,17 +1,37 @@
 import { Card, CardContent } from "../../../shadcn/ui/card";
+import { CLAN_BACKGROUND_URLS } from "../../techniques/clans";
 import { Confrontation } from "../components/confrontation";
 import { Identity } from "../components/identity";
 import { Skills } from "../components/skills";
+import { useCharacterStore } from "../stores/character.store";
 
 export function CharacterPage() {
+  const { clanId } = useCharacterStore();
+  const clanBackgroundUrl = CLAN_BACKGROUND_URLS[clanId];
+
   return (
     <div
       className={`
+        relative
         flex
         flex-col
         gap-4
       `}
     >
+      <div
+        className={`
+          absolute
+          inset-0
+          bg-cover
+          opacity-40
+        `}
+        style={{
+          backgroundImage: `url(${clanBackgroundUrl})`,
+          backgroundSize: "400px",
+          backgroundPosition: "28px 28px",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       <div
         className={`
           flex

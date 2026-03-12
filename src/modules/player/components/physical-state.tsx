@@ -1,12 +1,18 @@
 import { CenteredContainer } from "../../../components/centered-container";
 import CheckboxInput from "../../../components/checkbox-input";
+import { HelperText } from "../../../components/helper-text";
 import { Label } from "../../../components/label";
 import NumberInput from "../../../components/number-input";
-import TextInput from "../../../components/text-input";
+import { SelectInput } from "../../../components/select-input";
+import { useAlterations } from "../../alterations/use-alterations";
 import { useCharacterStore } from "../stores/character.store";
 import { ArmorInput } from "./armor-input";
 import { StanceInput } from "./stance-input";
 import { WeaponInput } from "./weapon-input";
+
+export function getEndurance(fireValue: number, earthValue: number): number {
+  return (fireValue + earthValue) * 2;
+}
 
 export function PhysicalState() {
   const {
@@ -14,12 +20,13 @@ export function PhysicalState() {
     earthValue,
     exhaustion,
     updateExhaustion,
-    physicalAlteration,
-    updatePhysicalAlteration,
+    alterationId,
+    updateAlteration,
     criticalHits,
     updateCriticalHits,
   } = useCharacterStore();
-  const endurance = (fireValue + earthValue) * 2;
+  const alterations = useAlterations();
+  const endurance = getEndurance(fireValue, earthValue);
 
   function onCriticalHitToggled(isChecked: boolean, value: number) {
     if (criticalHits === value) {
@@ -43,21 +50,23 @@ export function PhysicalState() {
         onChange={updateExhaustion}
         label="倦 Fatigue"
         inputStyle={{
-          color: getScaledColor(exhaustion, endurance),
+          backgroundColor: getScaledColor(exhaustion, endurance),
         }}
         className="w-28"
+        inputClassName="w-10 text-white"
         helperText="Si la Fatigue atteint son maximum, le personnage tombe inconscient"
       />
       <div>
-        <Label htmlFor="critical-hits" className="mb-2">命 Coups Critiques</Label>
+        <Label className="mb-1.5">命 Coups Critiques</Label>
         <CenteredContainer className="gap-2.5">
           <CheckboxInput
             isChecked={criticalHits > 0}
             onChange={(isChecked) => {
               onCriticalHitToggled(isChecked, 1);
             }}
-            tooltip="Douleur atroce : ajoute 3 points de Conflit"
+            tooltip="Douleur atroce : ajoute 3 points de Conflit (automatique)"
             className={`
+              relative
               text-yellow-600
 
               checked:border-yellow-700
@@ -71,6 +80,7 @@ export function PhysicalState() {
             }}
             tooltip="Blessure légère : ND+1 au prochain test"
             className={`
+              relative
               text-amber-600
 
               checked:border-amber-700
@@ -83,6 +93,7 @@ export function PhysicalState() {
             }}
             tooltip="Blessure incapacitante : ND+1 jusqu’à ce que la blessure soit soignée"
             className={`
+              relative
               text-orange-600
 
               checked:border-orange-700
@@ -95,6 +106,7 @@ export function PhysicalState() {
             }}
             tooltip="Blessure grave : hors de combat jusqu’à ce que la blessure soit soignée"
             className={`
+              relative
               text-red-600
 
               checked:border-red-700
@@ -102,36 +114,73 @@ export function PhysicalState() {
           />
         </CenteredContainer>
       </div>
-      <TextInput
-        onChange={updatePhysicalAlteration}
-        value={physicalAlteration}
+      <SelectInput
+        onChange={(alterationId) => {
+          const alteration = alterations.find((alteration) => alteration.id === alterationId);
+          if (alteration !== undefined) {
+            updateAlteration(alteration);
+          }
+        }}
+        value={alterationId}
         label="州 État"
+        className={`
+          relative
+          w-34
+        `}
+        options={alterations.map((alteration) => {
+          return {
+            value: alteration.id,
+            displayContent: (
+              <div
+                className={`
+                  flex
+                  items-end
+                  gap-1.5
+                `}
+              >
+                <p>{alteration.label}</p>
+                {alteration.description !== "" && (
+                  <HelperText
+                    helperText={(
+                      <p className="whitespace-pre-line">
+                        {alteration.description}
+                      </p>
+                    )}
+                  />
+                )}
+              </div>
+            ),
+          };
+        })}
       />
       <div
         className={`
           flex
-          gap-2
+          flex-col
         `}
       >
-        <StanceInput />
-        <ArmorInput />
-        <WeaponInput />
+        <Label className="mb-0.5">姿 Posture</Label>
+        <div
+          className={`
+            flex
+            gap-2
+          `}
+        >
+          <StanceInput />
+          <ArmorInput />
+          <WeaponInput />
+        </div>
       </div>
     </div>
   );
 }
 
-function getScaledColor(value: number, max: number): string {
-  const from = { l: 0.723, c: 0.219, h: 149.579 };
-  const to = { l: 0.705, c: 0.213, h: 47.604 };
+export function getScaledColor(value: number, max: number): string {
+  const from = { l: 0.6, c: 0.06, h: 146 };
+  const to = { l: 0.58, c: 0.24, h: 27.3 };
 
   const ratio = max > 0 ? Math.min(value / max, 1) : 0;
-
   const lerp = (a: number, b: number) => a + ratio * (b - a);
 
-  const l = lerp(from.l, to.l);
-  const c = lerp(from.c, to.c);
-  const h = lerp(from.h, to.h);
-
-  return `oklch(${l.toFixed(3)} ${c.toFixed(3)} ${h.toFixed(3)})`;
+  return `oklch(${lerp(from.l, to.l).toFixed(3)} ${lerp(from.c, to.c).toFixed(3)} ${lerp(from.h, to.h).toFixed(3)})`;
 }

@@ -5,7 +5,7 @@ import RawNumberInput, { fixNumberInputValue } from "./raw-number-input";
 import { HelperText } from "./helper-text";
 
 interface NumberInputProps {
-  label?: string;
+  label?: string | undefined;
   value: number;
   min?: number;
   max?: number;
@@ -13,6 +13,7 @@ interface NumberInputProps {
   className?: string;
   labelClassName?: string;
   inputStyle?: React.CSSProperties;
+  inputClassName?: string;
   helperText?: ReactNode;
   increaseButtonTooltip?: string | undefined;
   isIncreaseDisabled?: boolean;
@@ -27,6 +28,7 @@ export default function NumberInput({
   className = "",
   labelClassName = "",
   inputStyle = {},
+  inputClassName = "",
   isIncreaseDisabled = false,
   helperText,
   increaseButtonTooltip,
@@ -67,14 +69,24 @@ export default function NumberInput({
           >
             {label}
           </Label>
-          {helperText !== undefined && <HelperText className="text-olive-700" helperText={helperText} />}
+          {helperText !== undefined && (
+            <HelperText
+              className={`
+                relative
+                text-olive-700
+              `}
+              helperText={helperText}
+            />
+          )}
         </div>
       )}
       <div
         className={`
           flex
-          max-w-36
+          w-fit
+          max-w-full
           items-stretch
+          rounded
           bg-[#f5ede0]
           text-gray-900
           shadow-sm
@@ -106,15 +118,18 @@ export default function NumberInput({
           min={min}
           max={max}
           value={value}
-          className={`
-            block
-            w-16
-            border-y
-            border-[#c8a06a]
-            px-1
-            py-2
-            text-center
-          `}
+          className={cn(
+            `
+              block
+              w-16
+              border-y
+              border-[#c8a06a]
+              px-1
+              py-2
+              text-center
+            `,
+            inputClassName,
+          )}
           style={inputStyle}
         />
 

@@ -1,4 +1,3 @@
-import { renderToStaticMarkup } from "react-dom/server";
 import { ITEMS, type Item } from "../../items/items";
 import { PopoverPickerInput } from "../../../components/popover-picker-input";
 
@@ -6,14 +5,12 @@ interface ItemInputProps {
   itemIds: string[];
   equippedItemId: string | null;
   setEquippedItemId: (itemId: string | null) => void;
-  defaultItem: Item;
 }
 
 export function ItemInput({
   itemIds,
   equippedItemId,
   setEquippedItemId,
-  defaultItem,
 }: ItemInputProps) {
   const options = ITEMS
     .filter((item) => itemIds.includes(item.id))
@@ -35,17 +32,10 @@ export function ItemInput({
 
   return (
     <PopoverPickerInput
-      value={equippedItemId ?? "default"}
+      value={equippedItemId}
       onChange={onChange}
       options={[
         ...options,
-        {
-          value: "default",
-          label: "Default",
-          description: renderToStaticMarkup(<ItemDescription item={defaultItem} />),
-          shortDescription: defaultItem.shortDescription,
-          illustration: defaultItem.illustration,
-        },
       ]}
     />
   );
