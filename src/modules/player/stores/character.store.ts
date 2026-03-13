@@ -218,23 +218,23 @@ export const useCharacterStore = create<Store>()(
         set({ loseControlAttitude });
       },
 
-      airValue: 0,
+      airValue: 1,
       updateAirValue: (airValue) => {
         set({ airValue });
       },
-      earthValue: 0,
+      earthValue: 1,
       updateEarthValue: (earthValue) => {
         set({ earthValue });
       },
-      fireValue: 0,
+      fireValue: 1,
       updateFireValue: (fireValue) => {
         set({ fireValue });
       },
-      waterValue: 0,
+      waterValue: 1,
       updateWaterValue: (waterValue) => {
         set({ waterValue });
       },
-      voidValue: 0,
+      voidValue: 1,
       updateVoidValue: (voidValue) => {
         set({ voidValue });
       },
