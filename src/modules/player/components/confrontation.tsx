@@ -49,7 +49,7 @@ export function Confrontation() {
           text-olive-600!
         `}
       >
-        <span>Confrontation</span>
+        <span>対 Confrontation</span>
         <HelperText
           className="relative"
           helperText={(

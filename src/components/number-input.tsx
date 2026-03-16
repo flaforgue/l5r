@@ -42,7 +42,10 @@ export default function NumberInput({
     onChange(fixNumberInputValue(value - 1, min, max));
   };
 
-  const btnClass = `
+  const isDecreaseButtonDisabled = value <= min;
+  const isDisabled = isDecreaseButtonDisabled && isIncreaseDisabled;
+
+  const buttonClassNames = `
     relative overflow-hidden
     bg-[#f5ede0]
     hover:bg-[#eddfc8]
@@ -52,6 +55,11 @@ export default function NumberInput({
     text-[#5a3e1b] text-sm font-serif
     transition-colors duration-150
     focus:outline-none
+  `;
+  const disabledButtonClassNames = `
+    cursor-not-allowed!
+    bg-[#f5ede0]!
+    opacity-30
   `;
 
   return (
@@ -94,12 +102,19 @@ export default function NumberInput({
       >
         <button
           type="button"
+          disabled={isDecreaseButtonDisabled}
+          data-tooltip-id="global"
+          data-tooltip-content={isDecreaseButtonDisabled ? "Cette valeur ne peut pas aller plus bas" : null}
           onClick={decrement}
           className={`
-            ${btnClass}
+            ${buttonClassNames}
 
             rounded-l
             border-r-0
+
+            ${isDecreaseButtonDisabled
+      ? disabledButtonClassNames
+      : ""}
           `}
         >
           <span
@@ -118,6 +133,7 @@ export default function NumberInput({
           min={min}
           max={max}
           value={value}
+          isDisabled={isDisabled}
           className={cn(
             `
               block
@@ -140,13 +156,9 @@ export default function NumberInput({
           type="button"
           onClick={increment}
           className={`
-            ${btnClass}
+            ${buttonClassNames}
             ${isIncreaseDisabled
-      ? `
-        cursor-not-allowed!
-        bg-[#f5ede0]!
-        opacity-30
-      `
+      ? disabledButtonClassNames
       : ""}
 
             rounded-r

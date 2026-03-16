@@ -64,7 +64,6 @@ export function InterludePage() {
               uppercase
             `}
           >
-            Améliorer un Anneau
             <HelperText
               helperText={(
                 <div>
@@ -76,6 +75,7 @@ export function InterludePage() {
                 </div>
               )}
             />
+            Améliorer un Anneau
           </h3>
           <Card>
             <CardContent>
@@ -94,7 +94,6 @@ export function InterludePage() {
               uppercase
             `}
           >
-            Améliorer une Compétence (Rang max : 5)
             <HelperText
               helperText={(
                 <div>
@@ -112,6 +111,7 @@ export function InterludePage() {
                 </div>
               )}
             />
+            Améliorer une Compétence (Rang max : 5)
           </h3>
           <Card>
             <UpgradeSkills />

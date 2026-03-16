@@ -1,6 +1,9 @@
 import NumberInput from "../../../components/number-input";
 import { useCharacterStore } from "../stores/character.store";
 
+const skillMinValue = 0;
+const skillMaxValue = 5;
+
 interface SkillFamily {
   label: string;
   skills: {
@@ -13,6 +16,7 @@ interface SkillFamily {
 
 export function UpgradeSkills() {
   const {
+    experience,
     aestheticValue,
     updateAestheticValue,
     compositionValue,
@@ -279,13 +283,14 @@ export function UpgradeSkills() {
               `}
             >
               {skillFamily.skills.map((skill) => {
-                const max = 5;
                 const skillValue = skill.value;
                 const upgradeCost = 2 * (skillValue + 1);
-                const isDisabled = skillValue >= max;
+                const hasEnoughExperience = experience >= upgradeCost;
+                const isMax = skillValue >= skillMaxValue;
+                const isUpgradeDisabled = isMax || !hasEnoughExperience;
 
                 function upgradeSkillValue(value: number) {
-                  if (isDisabled) {
+                  if (isUpgradeDisabled) {
                     return;
                   }
 
@@ -294,6 +299,10 @@ export function UpgradeSkills() {
                 }
 
                 function downgradeSkillValue(value: number) {
+                  if (value < skillMinValue) {
+                    return;
+                  }
+
                   const downgradeCost = -2 * (value + 1);
                   spendExperience(downgradeCost);
                   skill.updateValue(value);
@@ -313,7 +322,7 @@ export function UpgradeSkills() {
                     <NumberInput
                       className="w-28"
                       inputClassName="w-10"
-                      label={isDisabled ? undefined : `Coût : ${upgradeCost}`}
+                      label={isMax ? undefined : `Coût : ${upgradeCost}`}
                       value={skillValue}
                       onChange={(value) => {
                         if (value > skillValue) {
@@ -322,8 +331,13 @@ export function UpgradeSkills() {
                           downgradeSkillValue(value);
                         }
                       }}
-                      isIncreaseDisabled={isDisabled}
-                      increaseButtonTooltip={isDisabled ? "La compétence est déjà au maximum" : undefined}
+                      max={skillMaxValue}
+                      min={skillMinValue}
+                      isIncreaseDisabled={isUpgradeDisabled}
+                      increaseButtonTooltip={getTooltipContent({
+                        isMax,
+                        hasEnoughExperience,
+                      })}
                     />
                   </div>
                 );
@@ -334,4 +348,22 @@ export function UpgradeSkills() {
       })}
     </div>
   );
+}
+
+function getTooltipContent({
+  isMax,
+  hasEnoughExperience,
+}: {
+  isMax: boolean;
+  hasEnoughExperience: boolean;
+}): string | undefined {
+  if (isMax) {
+    return "La compétence est déjà au maximum";
+  }
+
+  if (!hasEnoughExperience) {
+    return "Vous n'avez pas assez d'expérience pour augmenter cette compétence";
+  }
+
+  return undefined;
 }

@@ -3,6 +3,9 @@ import NumberInput from "../../../components/number-input";
 import { useCharacterStore } from "../stores/character.store";
 import { RING_LABELS, RING_TYPES, type RingType } from "./ring";
 
+const ringMinValue = 1;
+const ringMaxValue = 5;
+
 export function UpgradeRings() {
   const {
     airValue,
@@ -57,12 +60,12 @@ export function UpgradeRings() {
 
         const restrictionValue = voidValue + lowestRingValue;
         const isRestricted = ringValue >= restrictionValue;
-        const isMax = ringValue >= 5;
+        const isMax = ringValue >= ringMaxValue;
         const hasEnoughExperience = experience >= upgradeCost;
-        const isDisabled = isMax || isRestricted || !hasEnoughExperience;
+        const isUpgradeDisabled = isMax || isRestricted || !hasEnoughExperience;
 
         function upgradeRingValue(value: number) {
-          if (isDisabled) {
+          if (isUpgradeDisabled) {
             return;
           }
 
@@ -71,6 +74,10 @@ export function UpgradeRings() {
         }
 
         function downgradeRingValue(value: number) {
+          if (value <= ringMinValue) {
+            return;
+          }
+
           const downgradeCost = -3 * (value + 1);
           spendExperience(downgradeCost);
           updateRingValue(ringType, value);
@@ -108,9 +115,9 @@ export function UpgradeRings() {
                   downgradeRingValue(value);
                 }
               }}
-              max={Math.min(5, restrictionValue)}
-              min={1}
-              isIncreaseDisabled={isDisabled}
+              max={Math.min(ringMaxValue, restrictionValue)}
+              min={ringMinValue}
+              isIncreaseDisabled={isUpgradeDisabled}
               increaseButtonTooltip={getTooltipContent({
                 isMax,
                 isRestricted,

@@ -64,7 +64,7 @@ export function CharacterPage() {
         </Card>
         <Card className="w-1/2">
           <CardContent>
-            Techniques
+            る Techniques
           </CardContent>
         </Card>
       </div>

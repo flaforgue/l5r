@@ -3,28 +3,22 @@ import { cn } from "../shadcn/lib/utils";
 
 interface RawNumberInputProps {
   value: number;
+  onChange: (v: number) => void;
   id: string;
   min?: number | undefined;
   max?: number | undefined;
-  onChange: (v: number) => void;
+  isDisabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export function fixNumberInputValue(value: unknown, min: number, max: number) {
-  const castedValue = Number(value);
-  const validCastedValue = isNaN(castedValue) ? 0 : castedValue;
-  const validValue = Math.max(min, Math.min(validCastedValue, max));
-
-  return Math.round(validValue * 100) / 100;
-}
-
 export default function RawNumberInput({
   value,
+  onChange,
   id,
   min,
   max,
-  onChange,
+  isDisabled = false,
   className = "",
   style = {},
 }: RawNumberInputProps) {
@@ -42,6 +36,7 @@ export default function RawNumberInput({
   return (
     <input
       type="number"
+      disabled={isDisabled}
       id={id}
       name={id}
       onChange={handleChange}
@@ -61,10 +56,26 @@ export default function RawNumberInput({
 
           [&::-webkit-inner-spin-button]:appearance-none
           [&::-webkit-outer-spin-button]:appearance-none
+
+          ${isDisabled
+      ? `
+        cursor-not-allowed!
+        bg-[#f5ede0]!
+        opacity-30
+      `
+      : ""}
         `,
         className,
       )}
       style={style}
     />
   );
+}
+
+export function fixNumberInputValue(value: unknown, min: number, max: number) {
+  const castedValue = Number(value);
+  const validCastedValue = isNaN(castedValue) ? 0 : castedValue;
+  const validValue = Math.max(min, Math.min(validCastedValue, max));
+
+  return Math.round(validValue * 100) / 100;
 }
