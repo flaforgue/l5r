@@ -2,15 +2,16 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { RingType } from "../components/ring";
 import { ARMORS, WEAPONS } from "../../items/items";
-import type { ClanId } from "../../techniques/clans";
+import type { ClanId } from "../../clans/clans";
 import type { Alteration } from "../../alterations/use-alterations";
+import type { FamilyId } from "../../clans/families";
 
 interface Store {
   // Identity
   clanId: ClanId;
   updateClanId: (clanId: ClanId) => void;
-  familyName: string;
-  updateFamilyName: (familyName: string) => void;
+  familyId: FamilyId;
+  updateFamilyId: (familyId: FamilyId) => void;
   characterName: string;
   updateCharacterName: (characterName: string) => void;
   honor: number;
@@ -80,6 +81,10 @@ interface Store {
   spentExperience: number;
   spendExperience: (amount: number) => void;
 
+  // Techniques
+  techniqueIds: string[];
+  updateTechniqueIds: (techniqueIds: string[]) => void;
+
   // Skills
   aestheticValue: number;
   updateAestheticValue: (aestheticValue: number) => void;
@@ -139,9 +144,9 @@ export const useCharacterStore = create<Store>()(
       updateClanId: (clanId) => {
         set({ clanId });
       },
-      familyName: "",
-      updateFamilyName: (familyName) => {
-        set({ familyName });
+      familyId: "akodo",
+      updateFamilyId: (familyId) => {
+        set({ familyId });
       },
       characterName: "",
       updateCharacterName: (characterName) => {
@@ -269,6 +274,11 @@ export const useCharacterStore = create<Store>()(
       dilemma: "",
       updateDilemma: (dilemma: string) => {
         set({ dilemma });
+      },
+
+      techniqueIds: [],
+      updateTechniqueIds: (techniqueIds: string[]) => {
+        set({ techniqueIds });
       },
 
       aestheticValue: 0,

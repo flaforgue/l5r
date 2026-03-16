@@ -5,8 +5,8 @@ import {
   Navigate,
 } from "react-router";
 
-import { PLAYER_ROUTES } from "./modules/player/player.routes";
-import { NotFoundPage } from "./modules/player/pages/not-found.page";
+import { PLAYER_ROUTES } from "./modules/character/character.routes";
+import { NotFoundPage } from "./modules/character/pages/not-found.page";
 import { Layout } from "./components/layout";
 
 const routes: RouteObject[] = [

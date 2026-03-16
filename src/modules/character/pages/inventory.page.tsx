@@ -18,32 +18,32 @@ export function InventoryPage() {
   return (
     <div
       className={`
-        grid
-        grid-cols-2
+        flex
         gap-4
       `}
     >
       <div
         className={`
           flex
+          w-1/3
           flex-col
           gap-4
         `}
       >
         <div>
-          <h2>
-            庫 Inventaire
-          </h2>
           <Card>
             <CardContent
               className={`
                 flex
                 items-center
                 justify-between
+                gap-8
               `}
             >
               <InventoryZeni />
-              <AddItemInput />
+              <div className="flex-1">
+                <AddItemInput />
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -52,24 +52,18 @@ export function InventoryPage() {
       <div
         className={`
           flex
+          flex-1
           flex-col
           gap-4
         `}
       >
         <ItemTable
-          title="兵 Armes"
-          itemIds={weaponIds}
-          updateItemIds={updateWeaponIds}
-        />
-        <ItemTable
-          title="鎧 Armures"
-          itemIds={armorIds}
-          updateItemIds={updateArmorIds}
-        />
-        <ItemTable
-          title="物 Objets"
           itemIds={itemIds}
+          weaponIds={weaponIds}
+          armorIds={armorIds}
           updateItemIds={updateItemIds}
+          updateWeaponIds={updateWeaponIds}
+          updateArmorIds={updateArmorIds}
         />
       </div>
     </div>

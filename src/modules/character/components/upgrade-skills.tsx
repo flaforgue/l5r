@@ -1,4 +1,5 @@
 import NumberInput from "../../../components/number-input";
+import { Card, CardContent } from "../../../shadcn/ui/card";
 import { useCharacterStore } from "../stores/character.store";
 
 const skillMinValue = 0;
@@ -243,107 +244,97 @@ export function UpgradeSkills() {
   return (
     <div
       className={`
-        grid
-        grid-cols-3
+        flex
+        w-fit
+        gap-4
       `}
     >
       {skillFamilies.map((skillFamily) => {
         return (
-          <div
-            key={skillFamily.label}
-            className={`
-              border-r
-              border-b
-              border-olive-300
-              p-6
+          <Card key={skillFamily.label} className="w-sm">
+            <CardContent>
+              <h4
+                className={`
+                  mb-4
+                  font-title
+                  text-sm
+                  text-[#9e8060]
+                  uppercase
+                `}
+              >
+                {skillFamily.label}
+              </h4>
+              <div
+                className={`
+                  flex
+                  flex-col
+                  gap-4
+                `}
+              >
+                {skillFamily.skills.map((skill) => {
+                  const skillValue = skill.value;
+                  const upgradeCost = 2 * (skillValue + 1);
+                  const hasEnoughExperience = experience >= upgradeCost;
+                  const isMax = skillValue >= skillMaxValue;
+                  const isUpgradeDisabled = isMax || !hasEnoughExperience;
 
-              nth-[3]:border-r-0
+                  function upgradeSkillValue(value: number) {
+                    if (isUpgradeDisabled) {
+                      return;
+                    }
 
-              nth-[4]:border-b-0
-
-              nth-[5]:border-b-0
-            `}
-          >
-            <h4
-              className={`
-                mb-4
-                font-title
-                text-sm
-                text-olive-900
-                uppercase
-              `}
-            >
-              {skillFamily.label}
-            </h4>
-            <div
-              className={`
-                flex
-                flex-col
-                gap-4
-              `}
-            >
-              {skillFamily.skills.map((skill) => {
-                const skillValue = skill.value;
-                const upgradeCost = 2 * (skillValue + 1);
-                const hasEnoughExperience = experience >= upgradeCost;
-                const isMax = skillValue >= skillMaxValue;
-                const isUpgradeDisabled = isMax || !hasEnoughExperience;
-
-                function upgradeSkillValue(value: number) {
-                  if (isUpgradeDisabled) {
-                    return;
+                    spendExperience(upgradeCost);
+                    skill.updateValue(value);
                   }
 
-                  spendExperience(upgradeCost);
-                  skill.updateValue(value);
-                }
+                  function downgradeSkillValue(value: number) {
+                    if (value < skillMinValue) {
+                      return;
+                    }
 
-                function downgradeSkillValue(value: number) {
-                  if (value < skillMinValue) {
-                    return;
+                    const downgradeCost = -2 * (value + 1);
+                    spendExperience(downgradeCost);
+                    skill.updateValue(value);
                   }
 
-                  const downgradeCost = -2 * (value + 1);
-                  spendExperience(downgradeCost);
-                  skill.updateValue(value);
-                }
-
-                return (
-                  <div
-                    key={skill.id}
-                    className={`
-                      flex
-                      items-center
-                      justify-between
-                      gap-4
-                    `}
-                  >
-                    <p>{skill.label}</p>
-                    <NumberInput
-                      className="w-28"
-                      inputClassName="w-10"
-                      label={isMax ? undefined : `Coût : ${upgradeCost}`}
-                      value={skillValue}
-                      onChange={(value) => {
-                        if (value > skillValue) {
-                          upgradeSkillValue(value);
-                        } else if (value < skillValue) {
-                          downgradeSkillValue(value);
-                        }
-                      }}
-                      max={skillMaxValue}
-                      min={skillMinValue}
-                      isIncreaseDisabled={isUpgradeDisabled}
-                      increaseButtonTooltip={getTooltipContent({
-                        isMax,
-                        hasEnoughExperience,
-                      })}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+                  return (
+                    <div
+                      key={skill.id}
+                      className={`
+                        flex
+                        items-center
+                        justify-between
+                        gap-4
+                      `}
+                    >
+                      <p className="text-olive-600">{skill.label}</p>
+                      <NumberInput
+                        className="w-28"
+                        inputClassName="w-10"
+                        label={isMax ? undefined : `Coût : ${upgradeCost}`}
+                        value={skillValue}
+                        onChange={(value) => {
+                          if (value > skillValue) {
+                            upgradeSkillValue(value);
+                          } else if (value < skillValue) {
+                            downgradeSkillValue(value);
+                          }
+                        }}
+                        max={skillMaxValue}
+                        isMaxHidden={true}
+                        min={skillMinValue}
+                        isIncreaseDisabled={isUpgradeDisabled}
+                        increaseButtonTooltip={getTooltipContent({
+                          isMax,
+                          hasEnoughExperience,
+                        })}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
         );
       })}
     </div>

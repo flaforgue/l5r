@@ -1,5 +1,6 @@
 import { HelperText } from "../../../components/helper-text";
 import NumberInput from "../../../components/number-input";
+import { Card, CardContent } from "../../../shadcn/ui/card";
 import { useCharacterStore } from "../stores/character.store";
 import { RING_LABELS, RING_TYPES, type RingType } from "./ring";
 
@@ -50,8 +51,8 @@ export function UpgradeRings() {
     <div
       className={`
         flex
-        flex-col
-        gap-4
+        justify-between
+        gap-2
       `}
     >
       {RING_TYPES.map((ringType) => {
@@ -84,47 +85,63 @@ export function UpgradeRings() {
         }
 
         return (
-          <div
+          <Card
             key={ringType}
-            className={`
-              flex
-              items-center
-              justify-between
-            `}
+            className="flex-1"
           >
-            <div
+            <CardContent
               className={`
                 flex
-                items-center
-                gap-1
+                flex-col
+                gap-6
               `}
             >
-              <img height={20} width={20} src={`${import.meta.env.BASE_URL}/images/${ringType}.png`} />
-              {RING_LABELS[ringType]}
-              <HelperText helperText={ringHelperTexts[ringType]} />
-            </div>
-            <NumberInput
-              label={`Coût : ${upgradeCost}`}
-              value={ringValue}
-              className="w-28"
-              inputClassName="w-10"
-              onChange={(value) => {
-                if (value > ringValue) {
-                  upgradeRingValue(value);
-                } else if (value < ringValue) {
-                  downgradeRingValue(value);
-                }
-              }}
-              max={Math.min(ringMaxValue, restrictionValue)}
-              min={ringMinValue}
-              isIncreaseDisabled={isUpgradeDisabled}
-              increaseButtonTooltip={getTooltipContent({
-                isMax,
-                isRestricted,
-                hasEnoughExperience,
-              })}
-            />
-          </div>
+              <div
+                className={`
+                  flex
+                  items-center
+                  justify-between
+                  text-olive-600
+                `}
+              >
+                <div
+                  className={`
+                    flex
+                    items-center
+                    gap-1
+                  `}
+                >
+                  <img height={20} width={20} src={`${import.meta.env.BASE_URL}/images/${ringType}.png`} />
+                  {RING_LABELS[ringType]}
+                </div>
+                <HelperText helperText={ringHelperTexts[ringType]} />
+              </div>
+              <NumberInput
+                label={`Coût : ${upgradeCost}`}
+                value={ringValue}
+                className={`
+                  m-auto
+                  w-28
+                `}
+                inputClassName="w-10"
+                onChange={(value) => {
+                  if (value > ringValue) {
+                    upgradeRingValue(value);
+                  } else if (value < ringValue) {
+                    downgradeRingValue(value);
+                  }
+                }}
+                max={Math.min(ringMaxValue, restrictionValue)}
+                min={ringMinValue}
+                isIncreaseDisabled={isUpgradeDisabled}
+                increaseButtonTooltip={getTooltipContent({
+                  isMax,
+                  isRestricted,
+                  hasEnoughExperience,
+                })}
+              />
+            </CardContent>
+          </Card>
         );
       })}
     </div>

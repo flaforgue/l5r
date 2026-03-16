@@ -16,7 +16,7 @@ export function TableCell({
       colSpan={colSpan}
       className={cn(
         `
-          px-3
+          px-4
           py-2
         `,
         className,

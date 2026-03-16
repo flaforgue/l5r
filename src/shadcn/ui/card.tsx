@@ -20,7 +20,7 @@ function Card({ className, children, ...props }: React.ComponentProps<"div">) {
           absolute
           inset-0
           bg-cover
-          opacity-50
+          opacity-80
         `}
         style={{
           backgroundImage: `url(${import.meta.env.BASE_URL}/images/paper.png)`,
@@ -32,6 +32,7 @@ function Card({ className, children, ...props }: React.ComponentProps<"div">) {
         className={`
           relative
           flex
+          h-full
           flex-col
           gap-6
           text-card-foreground
@@ -117,7 +118,10 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
-      className={cn("px-6", className)}
+      className={cn(`
+        h-full
+        px-6
+      `, className)}
       {...props}
     />
   );

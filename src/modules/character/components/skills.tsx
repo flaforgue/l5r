@@ -1,4 +1,3 @@
-import { Card, CardContent } from "../../../shadcn/ui/card";
 import { Advantage } from "./advantage";
 import { SkillsFamily } from "./skills-family";
 import { VoidPoints } from "./void-points";
@@ -278,24 +277,26 @@ export function Skills() {
         }}
       />
 
-      <Card
+      <div
         className={`
-          bg-olive-700/30
-          bg-none!
+          rounded
+          bg-white/60
           p-2
+          shadow
         `}
       >
-        <CardContent
+        <div
           className={`
             flex
             flex-col
             gap-4
+            p-2
           `}
         >
           <Advantage />
           <VoidPoints />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

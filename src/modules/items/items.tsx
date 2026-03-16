@@ -40,7 +40,7 @@ export const ARMORS: [Item, ...Item[]] = [
   {
     id: "6bb64b1d-9a75-457e-a891-cb82c811ea29",
     label: "Armure de Samouraï",
-    description: `Une armure qui protège efficacement et affiche votre statut.
+    description: `Une armure efficace qui affiche votre statut.
     Résistance : 2
   `,
     shortDescription: "R. 2",
@@ -61,7 +61,7 @@ export const WEAPONS: [Item, Item, ...Item[]] = [
   {
     id: "d93ffc13-b97f-4667-890b-e0357c139f9b",
     label: "Poings",
-    description: `Il n'est pas toujours nécessaire d'être armé pour se défendre.
+    description: `Il faut parfois se défendre avec ses poings.
     Arts Martiaux (👊)
     Portée : 0
     Dégâts : 1
@@ -94,8 +94,7 @@ export const WEAPONS: [Item, Item, ...Item[]] = [
   {
     id: "0e94bd61-f85a-4160-be06-91630df47c3a",
     label: "Masse",
-    description: `Une masse, aussi simple qu'efficace.
-    Arts Martiaux (⚔️)
+    description: `Arts Martiaux (⚔️)
     Portée : 1
     Dégâts : 4 (contondants)
     Si tenu à 2 mains : +1 dégât
@@ -106,7 +105,7 @@ export const WEAPONS: [Item, Item, ...Item[]] = [
   {
     id: "418e07e5-0edc-4cee-a7dd-3626a0a52e0e",
     label: "Arc",
-    description: `Un arc polyvalent qui peut s'utilier à la chasse ou sur le champ de bataille.
+    description: `Un arc simple mais efficace.
     Arts Martiaux (🏹)
     Portée : 2 - 4
     Dégâts : 4
@@ -122,7 +121,7 @@ export const ITEMS = [
   {
     id: "49f17ad7-31f4-4edc-8056-219183072c35",
     label: "Poison léger",
-    description: `Un poison léger qui embrouille sa cible pendant quelques minutes.
+    description: `Embrouille la cible pendant quelques minutes.
     Inflige 2 coups critiques.
   `,
     shortDescription: "",
@@ -131,7 +130,7 @@ export const ITEMS = [
   {
     id: "58858283-0e6c-4a98-bb81-a66d94171230",
     label: "Poison puissant",
-    description: `Un poison qui affaiblit sa cible de manière prolongée.
+    description: `Affaiblit la cible de manière prolongée.
     Inflige 3 coups critiques.
   `,
     shortDescription: "",

@@ -34,7 +34,12 @@ export function AddItemInput() {
       return;
     }
 
-    updateItemIds([...itemIds, newItemId]);
+    const isItem = ITEMS.some((item) => item.id === newItemId);
+    if (isItem) {
+      updateItemIds([...itemIds, newItemId]);
+
+      return;
+    }
   }
 
   return (
@@ -45,7 +50,7 @@ export function AddItemInput() {
       onChange={(newItemId) => {
         addItem(newItemId);
       }}
-      inputClassName="w-64"
+      inputClassName="w-full"
     />
   );
 }

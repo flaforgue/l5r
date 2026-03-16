@@ -1,4 +1,4 @@
-import { useCharacterStore } from "../player/stores/character.store";
+import { useCharacterStore } from "../character/stores/character.store";
 
 export interface Alteration {
   id: string;
@@ -12,7 +12,7 @@ export function useAlterations(): Alteration[] {
 
   return [
     {
-      id: "a6b13816-34c8-49d6-a589-b6c30cb31b1b",
+      id: "none",
       label: "Aucun état",
       description: "",
       apply: () => { /* empty */ },

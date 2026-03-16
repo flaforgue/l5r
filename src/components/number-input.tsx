@@ -9,6 +9,7 @@ interface NumberInputProps {
   value: number;
   min?: number;
   max?: number;
+  isMaxHidden?: boolean;
   onChange: (v: number) => void;
   className?: string;
   labelClassName?: string;
@@ -24,6 +25,7 @@ export default function NumberInput({
   value,
   min = 0,
   max = Infinity,
+  isMaxHidden = false,
   onChange,
   className = "",
   labelClassName = "",
@@ -175,7 +177,7 @@ export default function NumberInput({
           </span>
         </button>
       </div>
-      {max !== Infinity && (
+      {max !== Infinity && !isMaxHidden && (
         <Label
           htmlFor={id}
           className={cn(

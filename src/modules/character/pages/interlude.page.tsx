@@ -1,8 +1,10 @@
 import { HelperText } from "../../../components/helper-text";
 import NumberInput from "../../../components/number-input";
+import { OverflowAwareContainer } from "../../../components/overflow-aware-container";
 import { ProgressBar } from "../../../components/progress-bar";
-import { Card, CardContent } from "../../../shadcn/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../shadcn/ui/tabs";
 import { CharacterRank } from "../components/character-rank";
+import { UnlockTechniques } from "../components/unlock-techniques";
 import { UpgradeRings } from "../components/upgrade-rings";
 import { UpgradeSkills } from "../components/upgrade-skills";
 import { RANK_XP_THRESHOLDS, useCharacterRank } from "../hooks/use-character-rank";
@@ -47,23 +49,16 @@ export function InterludePage() {
           min={0}
         />
       </div>
-      <div
+      <Tabs
+        defaultValue="rings"
+        orientation="vertical"
         className={`
           flex
           gap-4
         `}
       >
-        <div className="w-70">
-          <h3
-            className={`
-              mb-4
-              flex
-              items-center
-              gap-1
-              text-olive-700
-              uppercase
-            `}
-          >
+        <TabsList className="w-70">
+          <TabsTrigger value="rings">
             <HelperText
               helperText={(
                 <div>
@@ -76,31 +71,17 @@ export function InterludePage() {
               )}
             />
             Améliorer un Anneau
-          </h3>
-          <Card>
-            <CardContent>
-              <UpgradeRings />
-            </CardContent>
-          </Card>
-        </div>
-        <div className="flex-1">
-          <h3
-            className={`
-              mb-4
-              flex
-              items-center
-              gap-1
-              text-olive-700
-              uppercase
-            `}
-          >
+          </TabsTrigger>
+          <TabsTrigger value="skills">
             <HelperText
               helperText={(
                 <div>
                   <p>Rang 0 : aucune compétence, compréhension superficielle basée sur une expérience limitée</p>
                   <p>Rang 1 : débutant, le personnage a assimilé les bases grâce à une éducation formelle</p>
                   <p>Rang 2 : initié, le personnage commence à s&apos;immerger dans les subtilités de son art</p>
-                  <p>Rang 3 : professionnel, le personnage a acquis une expertise solide et une expérience pratique</p>
+                  <p>
+                    Rang 3 : professionnel, le personnage a acquis une expertise solide et une expérience pratique
+                  </p>
                   <p>
                     Rang 4 : expert, sa propre expérience a permis de faire progresser les pratiques dans ce domaine
                   </p>
@@ -111,13 +92,31 @@ export function InterludePage() {
                 </div>
               )}
             />
-            Améliorer une Compétence (Rang max : 5)
-          </h3>
-          <Card>
+            Améliorer une Compétence
+          </TabsTrigger>
+          <TabsTrigger value="techniques">
+            <HelperText helperText="Les Techniques sont de puissantes capacités débloquées après un entraînement rigoureux." />
+            Découvrir une Technique
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="rings">
+          <UpgradeRings />
+        </TabsContent>
+        <TabsContent
+          value="skills"
+          className={`
+            w-[calc(100%-17rem-1rem)]
+            flex-1
+          `}
+        >
+          <OverflowAwareContainer>
             <UpgradeSkills />
-          </Card>
-        </div>
-      </div>
+          </OverflowAwareContainer>
+        </TabsContent>
+        <TabsContent value="techniques">
+          <UnlockTechniques />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

@@ -14,6 +14,7 @@ export function HelperText({ helperText, className = "", style = {} }: HelperTex
       className={cn(
         `
           size-4
+          shrink-0
           outline-none
         `,
         className,

@@ -1,8 +1,9 @@
 import { Card, CardContent } from "../../../shadcn/ui/card";
-import { CLAN_BACKGROUND_URLS } from "../../techniques/clans";
+import { CLAN_BACKGROUND_URLS } from "../../clans/clans";
 import { Confrontation } from "../components/confrontation";
 import { Identity } from "../components/identity";
 import { Skills } from "../components/skills";
+import { Techniques } from "../components/techniques";
 import { useCharacterStore } from "../stores/character.store";
 
 export function CharacterPage() {
@@ -23,12 +24,12 @@ export function CharacterPage() {
           absolute
           inset-0
           bg-cover
-          opacity-40
+          opacity-80
         `}
         style={{
           backgroundImage: `url(${clanBackgroundUrl})`,
-          backgroundSize: "400px",
-          backgroundPosition: "28px 28px",
+          backgroundSize: "600px",
+          backgroundPosition: "80% 20%",
           backgroundRepeat: "no-repeat",
         }}
       />
@@ -64,7 +65,7 @@ export function CharacterPage() {
         </Card>
         <Card className="w-1/2">
           <CardContent>
-            る Techniques
+            <Techniques />
           </CardContent>
         </Card>
       </div>

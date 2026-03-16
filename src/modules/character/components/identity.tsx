@@ -2,7 +2,8 @@ import NumberInput from "../../../components/number-input";
 import { SelectInput } from "../../../components/select-input";
 import TextInput from "../../../components/text-input";
 import TextareaInput from "../../../components/textarea-input";
-import { CLANS, isClanId } from "../../techniques/clans";
+import { CLANS, isClanId } from "../../clans/clans";
+import { FAMILIES, isFamilyId } from "../../clans/families";
 import { useCharacterStore } from "../stores/character.store";
 import { Attention } from "./attention";
 import { CharacterRank } from "./character-rank";
@@ -13,8 +14,8 @@ export function Identity() {
   const {
     clanId,
     updateClanId,
-    familyName,
-    updateFamilyName,
+    familyId,
+    updateFamilyId,
     characterName,
     updateCharacterName,
     honor,
@@ -26,6 +27,13 @@ export function Identity() {
     schoolSkill,
     updateSchoolSkill,
   } = useCharacterStore();
+  const clanFamilies = Object.entries(FAMILIES)
+    .map(([familyId, family]) => ({
+      id: familyId,
+      label: family.label,
+      clanId: family.clanId,
+    }))
+    .filter((family) => family.clanId === clanId);
 
   return (
     <div
@@ -50,8 +58,8 @@ export function Identity() {
               updateClanId(value);
             }
           }}
-          options={Object.values(CLANS).map((clan) => ({
-            value: clan.id,
+          options={Object.entries(CLANS).map(([clanId, clan]) => ({
+            value: clanId,
             displayContent: (
               <div
                 className={`
@@ -70,10 +78,19 @@ export function Identity() {
             ),
           }))}
         />
-        <TextInput
+        <SelectInput
           label="家 FAMILLE"
-          value={familyName}
-          onChange={updateFamilyName}
+          value={familyId}
+          className="w-34"
+          onChange={(value) => {
+            if (isFamilyId(value)) {
+              updateFamilyId(value);
+            }
+          }}
+          options={clanFamilies.map((family) => ({
+            value: family.id,
+            displayContent: family.label,
+          }))}
         />
         <TextInput
           label="名 PRÉNOM"

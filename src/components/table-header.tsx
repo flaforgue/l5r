@@ -13,13 +13,12 @@ export function TableHeader({
     <th
       className={cn(
         `
-          border-b
-          border-[#c8a06a]
           bg-[#f5ede0]/90
           px-3
           py-2
           text-left
           font-title
+          text-[#9e8060]
         `,
         className,
       )}

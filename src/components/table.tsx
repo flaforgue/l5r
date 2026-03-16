@@ -14,14 +14,32 @@ export function Table({
       className={cn(
         `
           w-full
-          border-collapse
-          overflow-hidden
-          rounded
+          border-separate
+          border-spacing-0
           text-sm
           text-[#3a2410]
+          transition-colors
 
-          [&_tbody_tr:nth-child(even)]:bg-white/90
-          [&_tbody_tr:nth-child(odd)]:bg-olive-300/90
+          **:border-[#e3cfb5]
+
+          [&_tbody_tr:hover]:bg-olive-100/90
+
+          [&_tr]:bg-olive-50/80
+
+          [&_tr_td]:border-t
+
+          [&_tr_td:first-child]:border-l
+          [&_tr_td:last-child]:border-r
+
+          [&_tr_th:first-child]:border-l
+          [&_tr_th:last-child]:border-r
+
+          [&_tr:first-child_th]:border-t
+          [&_tr:first-child_th:first-child]:rounded-tl
+          [&_tr:first-child_th:last-child]:rounded-tr
+          [&_tr:last-child_td]:border-b
+          [&_tr:last-child_td:first-child]:rounded-bl
+          [&_tr:last-child_td:last-child]:rounded-br
         `,
         className,
       )}

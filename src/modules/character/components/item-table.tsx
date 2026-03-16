@@ -2,21 +2,28 @@ import { Button } from "../../../shadcn/ui/button";
 import { Table } from "../../../components/table";
 import { TableHeader } from "../../../components/table-header";
 import { TableCell } from "../../../components/table-cell";
-import { CircleXIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 import { getItemById } from "../../items/utils/get-item-by-id";
 import { removeItemById } from "../../items/utils/remove-item-by-id";
+import { ARMORS, ITEMS, WEAPONS } from "../../items/items";
 
 interface ItemTableProps {
-  title: string;
   itemIds: string[];
   updateItemIds: (itemIds: string[]) => void;
+  weaponIds: string[];
+  updateWeaponIds: (weaponIds: string[]) => void;
+  armorIds: string[];
+  updateArmorIds: (armorIds: string[]) => void;
   className?: string;
 }
 
 export function ItemTable({
-  title,
   itemIds,
   updateItemIds,
+  weaponIds,
+  updateWeaponIds,
+  armorIds,
+  updateArmorIds,
   className = "",
 }: ItemTableProps) {
   const items = itemIds
@@ -24,11 +31,43 @@ export function ItemTable({
     .filter((item) => item !== undefined)
     .sort((a, b) => a.label.localeCompare(b.label));
 
+  const weapons = weaponIds
+    .map((weaponId) => getItemById(weaponId))
+    .filter((weapon) => weapon !== undefined)
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  const armors = armorIds
+    .map((armorId) => getItemById(armorId))
+    .filter((armor) => armor !== undefined)
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  const allItems = [...weapons, ...armors, ...items];
+
+  function removeItem(itemToRemoveId: string) {
+    const isWeapon = WEAPONS.some((weapon) => weapon.id === itemToRemoveId);
+    if (isWeapon) {
+      updateWeaponIds(removeItemById(weaponIds, itemToRemoveId));
+
+      return;
+    }
+
+    const isArmor = ARMORS.some((armor) => armor.id === itemToRemoveId);
+    if (isArmor) {
+      updateArmorIds(removeItemById(armorIds, itemToRemoveId));
+
+      return;
+    }
+
+    const isItem = ITEMS.some((item) => item.id === itemToRemoveId);
+    if (isItem) {
+      updateItemIds(removeItemById(itemIds, itemToRemoveId));
+
+      return;
+    }
+  }
+
   return (
     <div className={className}>
-      <h2>
-        {title}
-      </h2>
       <Table>
         <thead>
           <tr>
@@ -38,7 +77,7 @@ export function ItemTable({
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => {
+          {allItems.map((item, index) => {
             return (
               <tr key={`item-${item.id}-${index}`}>
                 <TableCell>
@@ -66,21 +105,28 @@ export function ItemTable({
                     data-tooltip-id="global"
                     data-tooltip-content="Retirer de l'inventaire"
                     className={`
-                      text-rose-500
+                      h-fit
+                      w-fit
+                      rounded-full
+                      border
+                      border-rose-400!
+                      p-0.75
+                      text-rose-400
 
-                      hover:text-rose-600
+                      hover:bg-rose-400
+                      hover:text-white
                     `}
                     onClick={() => {
-                      updateItemIds(removeItemById(itemIds, item.id));
+                      removeItem(item.id);
                     }}
                   >
-                    <CircleXIcon className="size-4" />
+                    <XIcon className="size-3.5" />
                   </Button>
                 </TableCell>
               </tr>
             );
           })}
-          {itemIds.length === 0 && (
+          {allItems.length === 0 && (
             <tr>
               <TableCell
                 colSpan={3}
