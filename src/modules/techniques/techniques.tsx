@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { FamilyId } from "../clans/families";
 
-type TechniqueType = "kata" | "kiho" | "invocation" | "shuji";
+export type TechniqueType = "kata" | "kiho" | "invocation" | "shuji";
 
 interface FamilyAvailability {
   familyId: FamilyId;

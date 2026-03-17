@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Card, CardContent } from "../../../shadcn/ui/card";
 import { TECHNIQUES, type Technique } from "../../techniques/techniques";
 import { useCharacterRank } from "../hooks/use-character-rank";
 import { useCharacterStore } from "../stores/character.store";
-import TextInput from "../../../components/text-input";
 import { Button } from "../../../shadcn/ui/button";
 import { TechniquesType } from "./techniques-type";
 
@@ -16,17 +14,8 @@ export function UnlockTechniques() {
       return family.familyId === familyId && family.ranks.includes(characterRank);
     });
   });
-  const [search, setSearch] = useState("");
-  const filteredTechniques = availableTechniques.filter((technique) => {
-    if (techniqueIds.includes(technique.id)) {
-      return false;
-    }
-
-    if (search === "") {
-      return true;
-    }
-
-    return technique.label.toLowerCase().includes(search.toLowerCase());
+  const techniquesToLearn = availableTechniques.filter((technique) => {
+    return !techniqueIds.includes(technique.id);
   });
 
   function unlockTechnique(technique: Technique) {
@@ -39,110 +28,100 @@ export function UnlockTechniques() {
   }
 
   return (
+
     <div
       className={`
         flex
-        flex-col
+        w-fit
         gap-4
       `}
     >
-      <TextInput
-        value={search}
-        onChange={setSearch}
-        placeholder="Rechercher une technique"
-        className="w-82"
-      />
-      <div
-        className={`
-          grid
-          grid-cols-3
-          gap-4
-        `}
-      >
-        {filteredTechniques.map((technique) => {
-          return (
-            <Card key={technique.id}>
-              <CardContent
+      {techniquesToLearn.map((technique) => {
+        return (
+          <Card
+            key={technique.id}
+            className="w-md"
+          >
+            <CardContent
+              className={`
+                flex
+                flex-col
+                justify-between
+                gap-4
+              `}
+            >
+              <div
                 className={`
                   flex
                   flex-col
-                  justify-between
-                  gap-4
+                  gap-2
                 `}
               >
+                <h2
+                  className={`
+                    flex
+                    items-center
+                    gap-2
+                    text-base!
+                  `}
+                >
+                  <TechniquesType technique={technique} />
+                  {technique.label}
+                </h2>
                 <div
                   className={`
                     flex
                     flex-col
-                    gap-2
+                    gap-4
                   `}
                 >
-                  <h2
-                    className={`
-                      flex
-                      items-center
-                      gap-2
-                      text-base!
-                    `}
+                  <p
+                    className="text-olive-500"
                   >
-                    <TechniquesType technique={technique} />
-                    {technique.label}
-                  </h2>
-                  <div
-                    className={`
-                      flex
-                      flex-col
-                      gap-4
-                    `}
-                  >
-                    <p
-                      className="text-olive-500"
+                    {technique.description}
+                  </p>
+                  <p>
+                    Activation
+                    <br />
+                    <span className="text-olive-500">{technique.activation}</span>
+                  </p>
+                  {technique.diceTest !== null && (
+                    <p>
+                      Test
+                      <br />
+                      <span className="text-olive-500">{technique.diceTest}</span>
+                    </p>
+                  )}
+                  <p>
+                    Effets
+                    <br />
+                    <span
+                      className={`
+                        whitespace-pre-line
+                        text-olive-500
+                      `}
                     >
-                      {technique.description}
-                    </p>
-                    <p>
-                      Activation
-                      <br />
-                      <span className="text-olive-500">{technique.activation}</span>
-                    </p>
-                    {technique.diceTest !== null && (
-                      <p>
-                        Test
-                        <br />
-                        <span className="text-olive-500">{technique.diceTest}</span>
-                      </p>
-                    )}
-                    <p>
-                      Effets
-                      <br />
-                      <span
-                        className={`
-                          whitespace-pre-line
-                          text-olive-500
-                        `}
-                      >
-                        {technique.effects}
-                      </span>
-                    </p>
-                  </div>
+                      {technique.effects}
+                    </span>
+                  </p>
                 </div>
-                <Button
-                  disabled={experience < technique.xpCost}
-                  variant="outline"
-                  onClick={() => {
-                    unlockTechnique(technique);
-                  }}
-                >
-                  Débloquer&nbsp;(
-                  {technique.xpCost}
-                  {" "}
-                  XP)
-                </Button>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+              </div>
+              <Button
+                disabled={experience < technique.xpCost}
+                variant="outline"
+                onClick={() => {
+                  unlockTechnique(technique);
+                }}
+              >
+                Débloquer&nbsp;(
+                {technique.xpCost}
+                {" "}
+                XP)
+              </Button>
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 }

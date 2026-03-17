@@ -52,7 +52,7 @@ export function UpgradeRings() {
       className={`
         flex
         justify-between
-        gap-2
+        gap-4
       `}
     >
       {RING_TYPES.map((ringType) => {

@@ -57,7 +57,7 @@ export function InterludePage() {
           gap-4
         `}
       >
-        <TabsList className="w-70">
+        <TabsList>
           <TabsTrigger value="rings">
             <HelperText
               helperText={(
@@ -113,8 +113,16 @@ export function InterludePage() {
             <UpgradeSkills />
           </OverflowAwareContainer>
         </TabsContent>
-        <TabsContent value="techniques">
-          <UnlockTechniques />
+        <TabsContent
+          value="techniques"
+          className={`
+            w-[calc(100%-17rem-1rem)]
+            flex-1
+          `}
+        >
+          <OverflowAwareContainer>
+            <UnlockTechniques />
+          </OverflowAwareContainer>
         </TabsContent>
       </Tabs>
     </div>
