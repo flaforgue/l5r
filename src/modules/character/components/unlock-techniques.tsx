@@ -36,6 +36,9 @@ export function UnlockTechniques() {
         gap-4
       `}
     >
+      {techniquesToLearn.length === 0 && (
+        <p>Aucune technique à débloquer pour le moment.</p>
+      )}
       {techniquesToLearn.map((technique) => {
         return (
           <Card
