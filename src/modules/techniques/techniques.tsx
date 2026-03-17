@@ -412,4 +412,113 @@ Si vous ne connaissez aucun avantage, vous pouvez dépenser une aubaine pour en 
       },
     ],
   },
+  {
+    id: "c5df01c4-270e-4620-904d-1a00e03d65df",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Voie de la Sérénité",
+    xpCost: 3,
+    description: "Vous faites appel à l'esprit de l'eau pour apaiser le ki de votre cible ce qui accélère sa récupération.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Eau) ND2",
+    effects: `Une cible à portée 0-2 élimine un nombre de points de fatigue égal à votre valeur d'anneau + 1 par succès bonus.
+Chaque aubaine peut être dépensée pour éliminer également 1 point de conflit de votre cible.
+Action limitée à une fois par cible par scène.`,
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
+  {
+    id: "29b71632-9102-40fa-a458-6e9439bf69ee",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Tornade",
+    xpCost: 3,
+    description: "Vous demandez à l'esprit de l'Air de se déchaîner autour de vous.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Air) ND3",
+    effects: `Toutes les cibles à une portée 2-3 subissent un nombre de dégâts égal à votre valeur d'anneau et résister à un test de Forme ND4 pour ne pas être désorienté.
+Chaque aubaine dépensée permet de protéger un personnage de ces effets.`,
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
+  {
+    id: "05b033e7-98d8-4f17-97bd-0f56b1115577",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Extinction",
+    xpCost: 3,
+    description: "Vous conjurez l'énergie du Kami du Feu pour vous recharger.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Feu) ND3",
+    effects: `Jusqu'à 3 sources de feu à portée 0-3 s'éteignent, vous éliminez un point de fatigue pour chacune d'elles.
+Chaque aubaine dépensée permet de protéger un personnage de ces effets.`,
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
+  {
+    id: "64152a2f-1f57-4b23-8987-c993289e02d5",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Feu Intérieur",
+    xpCost: 3,
+    description: "Vous projetez des flamèches vers votre cible.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Feu) ND3",
+    effects: "Un nombre de personnages inférieur ou égal à votre rang d'anneau dans une portée 1-3 subit un nombre de dégâts égal à votre valeur d'anneau + 1 par succès bonus.",
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
+  {
+    id: "80a7a323-ad4c-47bb-9aa8-d7fe6aa7188b",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Morsure de l'Acier",
+    xpCost: 3,
+    description: "Vous réveillez l'esprit du Feu qui sommeille dans une arme.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Feu) ND2",
+    effects: `Ajoutez votre valeur d'anneau aux dégâts de base de l'arme métallique ciblée pendant un tour + 1 par succès bonus.
+1 aubaine : s'il s'agit de votre arme, vous pouvez frapper immédiatement avec.
+2 aubaines : l'effet persiste jusqu'à la fin de la scène.`,
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
+  {
+    id: "0f4ccd3d-4928-4433-9db8-434084f588d9",
+    type: "invocation",
+    illustrationUrl: `${import.meta.env.BASE_URL}/images/invocation.png`,
+    label: "Katana de Feu",
+    xpCost: 3,
+    description: "Vous conjurez un Katana de Feu.",
+    activation: "Au prix d'une action.",
+    diceTest: "Théologie (Feu) ND1",
+    effects: `Vous tenez un katana (D: 4) qui ignore la Résistance physique et qui persiste jusqu'à ce que vous le lâchiez (ou la fin de la scène).
+1 aubaine : vous pouvez frapper immédiatement.`,
+    availableFor: [
+      {
+        familyId: "isawa",
+        ranks: [1, 2, 3, 4, 5, 6],
+      },
+    ],
+  },
 ];

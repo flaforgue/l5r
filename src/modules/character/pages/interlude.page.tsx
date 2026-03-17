@@ -9,8 +9,15 @@ import { UpgradeRings } from "../components/upgrade-rings";
 import { UpgradeSkills } from "../components/upgrade-skills";
 import { RANK_XP_THRESHOLDS, useCharacterRank } from "../hooks/use-character-rank";
 import { useCharacterStore } from "../stores/character.store";
+import { useLocalStorageState } from "../../../hooks/use-local-storage-state";
+
+const tabs = { rings: "rings", skills: "skills", techniques: "techniques" } as const;
 
 export function InterludePage() {
+  const [activeTab, setActiveTab] = useLocalStorageState<string>(
+    "interlude-active-tab",
+    tabs.rings,
+  );
   const { experience, updateExperience, spentExperience } = useCharacterStore();
   const { characterRank } = useCharacterRank();
   const currentRankThreshold = RANK_XP_THRESHOLDS[characterRank - 1] ?? 0;
@@ -50,7 +57,8 @@ export function InterludePage() {
         />
       </div>
       <Tabs
-        defaultValue="rings"
+        value={activeTab}
+        onValueChange={setActiveTab}
         orientation="vertical"
         className={`
           flex
