@@ -1,6 +1,5 @@
 import { CenteredContainer } from "../../../components/centered-container";
 import CheckboxInput from "../../../components/checkbox-input";
-import { HelperText } from "../../../components/helper-text";
 import { Label } from "../../../components/label";
 import NumberInput from "../../../components/number-input";
 import { SelectInput } from "../../../components/select-input";
@@ -125,8 +124,38 @@ export function PhysicalState() {
         label="州 État"
         className={`
           relative
-          w-34
+          w-36
         `}
+        helperText={(
+          <div
+            className={`
+              flex
+              flex-col
+              gap-1
+            `}
+          >
+            {alterations
+              .filter((alteration) => alteration.description !== "")
+              .sort((a, b) => a.label.localeCompare(b.label))
+              .map((alteration) => {
+                return (
+                  <p
+                    key={alteration.id}
+                    className={`
+                      whitespace-pre-line
+                      text-gray-400
+                    `}
+                  >
+                    <span className="text-white">
+                      {alteration.label}
+&nbsp;:&nbsp;
+                    </span>
+                    {alteration.description}
+                  </p>
+                );
+              })}
+          </div>
+        )}
         options={alterations.map((alteration) => {
           return {
             value: alteration.id,
@@ -139,15 +168,6 @@ export function PhysicalState() {
                 `}
               >
                 <p>{alteration.label}</p>
-                {alteration.description !== "" && (
-                  <HelperText
-                    helperText={(
-                      <p className="whitespace-pre-line">
-                        {alteration.description}
-                      </p>
-                    )}
-                  />
-                )}
               </div>
             ),
           };
