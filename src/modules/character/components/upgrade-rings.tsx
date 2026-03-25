@@ -75,7 +75,7 @@ export function UpgradeRings() {
         }
 
         function downgradeRingValue(value: number) {
-          if (value <= ringMinValue) {
+          if (value < ringMinValue) {
             return;
           }
 
