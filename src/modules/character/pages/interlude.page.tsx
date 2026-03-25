@@ -4,7 +4,7 @@ import { OverflowAwareContainer } from "../../../components/overflow-aware-conta
 import { ProgressBar } from "../../../components/progress-bar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../shadcn/ui/tabs";
 import { CharacterRank } from "../components/character-rank";
-import { UnlockTechniques } from "../components/unlock-techniques";
+import { LearnTechniques } from "../components/learn-techniques";
 import { UpgradeRings } from "../components/upgrade-rings";
 import { UpgradeSkills } from "../components/upgrade-skills";
 import { RANK_XP_THRESHOLDS, useCharacterRank } from "../hooks/use-character-rank";
@@ -129,7 +129,7 @@ export function InterludePage() {
           `}
         >
           <OverflowAwareContainer>
-            <UnlockTechniques />
+            <LearnTechniques />
           </OverflowAwareContainer>
         </TabsContent>
       </Tabs>

@@ -1,11 +1,12 @@
+import { CheckCircleIcon } from "lucide-react";
+import { Button } from "../../../shadcn/ui/button";
 import { Card, CardContent } from "../../../shadcn/ui/card";
 import { TECHNIQUES, type Technique } from "../../techniques/techniques";
 import { useCharacterRank } from "../hooks/use-character-rank";
 import { useCharacterStore } from "../stores/character.store";
-import { Button } from "../../../shadcn/ui/button";
 import { TechniquesType } from "./techniques-type";
 
-export function UnlockTechniques() {
+export function LearnTechniques() {
   const { familyId, techniqueIds, updateTechniqueIds, experience, spendExperience } = useCharacterStore();
   const { characterRank } = useCharacterRank();
 
@@ -14,17 +15,24 @@ export function UnlockTechniques() {
       return family.familyId === familyId && family.ranks.includes(characterRank);
     });
   });
-  const techniquesToLearn = availableTechniques.filter((technique) => {
-    return !techniqueIds.includes(technique.id);
-  });
 
-  function unlockTechnique(technique: Technique) {
+  function learnTechnique(technique: Technique) {
     if (experience < technique.xpCost || techniqueIds.includes(technique.id)) {
       return;
     }
 
     spendExperience(technique.xpCost);
     updateTechniqueIds([...techniqueIds, technique.id]);
+  }
+
+  function forgetTechnique(technique: Technique) {
+    if (!techniqueIds.includes(technique.id)) {
+      return;
+    }
+
+    const forgetCost = -1 * technique.xpCost;
+    spendExperience(forgetCost);
+    updateTechniqueIds(techniqueIds.filter((id) => id !== technique.id));
   }
 
   return (
@@ -36,14 +44,28 @@ export function UnlockTechniques() {
         gap-4
       `}
     >
-      {techniquesToLearn.length === 0 && (
+      {availableTechniques.length === 0 && (
         <p>Aucune technique à débloquer pour le moment.</p>
       )}
-      {techniquesToLearn.map((technique) => {
+      {availableTechniques.map((technique) => {
+        const isLearnt = techniqueIds.includes(technique.id);
+
         return (
           <Card
             key={technique.id}
-            className="w-md"
+            className={`
+              w-md
+              border-2
+              bg-transparent
+              transition-colors
+
+              ${isLearnt
+            ? `
+              border-green-600
+              bg-green-300
+            `
+            : "border-olive-400"}
+            `}
           >
             <CardContent
               className={`
@@ -60,17 +82,70 @@ export function UnlockTechniques() {
                   gap-2
                 `}
               >
-                <h2
+                <div
                   className={`
+                    mb-2
                     flex
                     items-center
-                    gap-2
-                    text-base!
+                    justify-between
+                    gap-4
                   `}
                 >
-                  <TechniquesType technique={technique} />
-                  {technique.label}
-                </h2>
+                  <h2
+                    className={`
+                      relative
+                      mb-0!
+                      flex
+                      items-center
+                      gap-2
+                      text-base!
+                    `}
+                  >
+                    <TechniquesType technique={technique} />
+                    {technique.label}
+                    {isLearnt && (
+                      <div
+                        className={`
+                          absolute
+                          top-4
+                          left-4
+                        `}
+                      >
+                        <CheckCircleIcon
+                          className={`
+                            size-5
+                            rounded-full
+                            bg-white
+                            text-green-500
+                          `}
+                        />
+                      </div>
+                    )}
+                  </h2>
+                  {!isLearnt && (
+                    <Button
+                      disabled={experience < technique.xpCost}
+                      variant="outline"
+                      onClick={() => {
+                        learnTechnique(technique);
+                      }}
+                      data-tooltip-id="global"
+                      data-tooltip-content={`${technique.xpCost} XP`}
+                    >
+                      Débloquer
+                    </Button>
+                  )}
+                  {isLearnt && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        forgetTechnique(technique);
+                      }}
+                    >
+                      Oublier
+                    </Button>
+                  )}
+                </div>
                 <div
                   className={`
                     flex
@@ -109,18 +184,6 @@ export function UnlockTechniques() {
                   </p>
                 </div>
               </div>
-              <Button
-                disabled={experience < technique.xpCost}
-                variant="outline"
-                onClick={() => {
-                  unlockTechnique(technique);
-                }}
-              >
-                Débloquer&nbsp;(
-                {technique.xpCost}
-                {" "}
-                XP)
-              </Button>
             </CardContent>
           </Card>
         );

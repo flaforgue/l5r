@@ -71,8 +71,11 @@ const buttonVariants = cva(
           `,
         ghost:
           `
-            hover:bg-accent
-            hover:text-accent-foreground
+            border
+            border-olive-400
+            text-olive-600
+
+            hover:bg-olive-100
           `,
         link: `
           text-primary
